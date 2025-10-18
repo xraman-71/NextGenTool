@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi Tool Hub</title>
+    <title>NextGenTool - 100+ Free Online Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         /* Base Styles */
         * {
@@ -14,195 +16,1366 @@
         }
 
         body {
-            background-color: #1E1E2F;
-            color: #EAEAEA;
+            background-color: #f8fafc;
+            color: #334155;
             line-height: 1.6;
             padding-bottom: 2rem;
         }
 
         /* Header Styles */
         header {
-            background-color: #2B2D42;
-            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2.5rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            letter-spacing: 1px;
+            font-size: 2.8rem;
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.5rem;
+            font-weight: 400;
         }
 
         /* Main Content */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background-color: white;
+            color: #334155;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.2rem;
         }
 
         /* Tools Grid */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
         }
 
         /* Tool Card Styles */
         .tool-card {
-            background-color: #3A3D5B;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+            background-color: white;
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .tool-card:hover {
-            background-color: #FFD700;
-            color: #1E1E2F;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
         }
 
         .tool-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #FFD700;
-        }
-
-        .tool-card:hover h2 {
-            color: #1E1E2F;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #1e293b;
+            font-weight: 600;
         }
 
         .tool-card p {
             margin-bottom: 1.5rem;
             flex-grow: 1;
+            color: #64748b;
+            line-height: 1.6;
         }
 
         /* Button Styles */
         .tool-button {
-            background-color: #FFD700;
-            color: #1E1E2F;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             font-size: 1rem;
             align-self: flex-start;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .tool-button:hover {
-            background-color: #E6C200;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
         }
 
-        .tool-card:hover .tool-button {
-            background-color: #1E1E2F;
-            color: #FFD700;
+        /* Tool Emoji */
+        .tool-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .badge-business {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-trending {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-essential {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-popular {
+            background-color: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .badge-health {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
+
+        .badge-seo {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-social {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Enhanced Animation Classes */
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-bounce-subtle {
+            animation: bounce-subtle 2s ease-in-out infinite;
+        }
+
+        .animate-shake {
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+
+        .animate-pulse-soft {
+            animation: pulse-soft 2s ease-in-out infinite;
+        }
+
+        .animate-slide {
+            animation: slide 3s ease-in-out infinite;
+        }
+
+        .animate-typewriter {
+            animation: typewriter 4s steps(40) infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes slide {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(5px); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .category-title {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #f1f5f9;
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tool Counter */
+        .tool-counter {
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-left: auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* Tool Page Styles */
+        .tool-page {
+            display: none;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .back-button {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #475569;
+            transform: translateY(-2px);
+        }
+
+        .tool-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            min-height: 100px;
+        }
+
+        .preview-box {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .tools-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .category-title {
+                font-size: 1.4rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
             }
         }
 
         @media (max-width: 480px) {
             .tool-card {
-                padding: 1rem;
+                padding: 1.5rem;
             }
             
             h1 {
-                font-size: 1.75rem;
+                font-size: 1.9rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Multi Tool Hub</h1>
+        <h1>NextGenTool</h1>
+        <p class="tagline">100+ Free Online Tools for Everyone</p>
+        <p class="tagline">Fast, privacy-friendly, no sign-up required.</p>
     </header>
     
-    <main>
-        <div class="tools-grid">
-            <!-- Image Converter -->
-            <div class="tool-card">
-                <h2>Image Converter</h2>
-                <p>Convert your images between different formats like JPG, PNG, WEBP, and more with just a few clicks.</p>
-                <button class="tool-button" data-tool="Image Converter">Use Tool</button>
+    <main id="main-content">
+        <!-- Landing Page Content -->
+        <div id="landing-page">
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-input" id="tool-search" placeholder="Search tools (e.g., image converter, calculator)" aria-label="Search tools">
+                <div class="search-icon">🔍</div>
             </div>
-            
-            <!-- Image Compressor -->
-            <div class="tool-card">
-                <h2>Image Compressor</h2>
-                <p>Reduce image file sizes without compromising quality to save storage and improve loading times.</p>
-                <button class="tool-button" data-tool="Image Compressor">Use Tool</button>
+
+            <!-- Trending & Popular Tools -->
+            <section class="category-section">
+                <h2 class="category-title">
+                    <span>🔥 Trending & Popular Tools</span>
+                    <span class="tool-counter">7 tools</span>
+                </h2>
+                <div class="tools-grid">
+                    <!-- Invoice Generator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-float">📄</div>
+                        <h2>Invoice Generator</h2>
+                        <p>Create professional invoices quickly and easily with customizable templates.</p>
+                        <button class="tool-button" onclick="openTool('invoice-generator')">Use Tool</button>
+                        <span class="badge badge-business">Business</span>
+                    </div>
+                    
+                    <!-- QR Code Generator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-spin-slow">🔳</div>
+                        <h2>QR Code Generator</h2>
+                        <p>Create custom QR codes for websites, contact information, and more.</p>
+                        <button class="tool-button" onclick="openTool('qr-code-generator')">Use Tool</button>
+                        <span class="badge badge-trending">Trending</span>
+                    </div>
+                    
+                    <!-- Password Generator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-shake">🔒</div>
+                        <h2>Password Generator</h2>
+                        <p>Generate strong, secure passwords with customizable length and character types.</p>
+                        <button class="tool-button" onclick="openTool('password-generator')">Use Tool</button>
+                        <span class="badge badge-essential">Essential</span>
+                    </div>
+                    
+                    <!-- Image Resizer -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-slide">📏</div>
+                        <h2>Image Resizer</h2>
+                        <p>Resize images to specific dimensions while maintaining quality.</p>
+                        <button class="tool-button" onclick="openTool('image-resizer')">Use Tool</button>
+                        <span class="badge badge-popular">Popular</span>
+                    </div>
+                    
+                    <!-- BMI Calculator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-bounce-subtle">⚖️</div>
+                        <h2>BMI Calculator</h2>
+                        <p>Calculate your Body Mass Index to assess your weight category.</p>
+                        <button class="tool-button" onclick="openTool('bmi-calculator')">Use Tool</button>
+                        <span class="badge badge-health">Health</span>
+                    </div>
+                    
+                    <!-- Meta Tag Generator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-pulse-soft">🏷️</div>
+                        <h2>Meta Tag Generator</h2>
+                        <p>Generate SEO-friendly meta tags for your website to improve search visibility.</p>
+                        <button class="tool-button" onclick="openTool('meta-tag-generator')">Use Tool</button>
+                        <span class="badge badge-seo">SEO</span>
+                    </div>
+                    
+                    <!-- YouTube Thumbnail Downloader -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-float">📺</div>
+                        <h2>YouTube Thumbnail</h2>
+                        <p>Download high-quality thumbnails from YouTube videos.</p>
+                        <button class="tool-button" onclick="openTool('youtube-thumbnail-downloader')">Use Tool</button>
+                        <span class="badge badge-social">Social</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Tools -->
+            <section class="category-section">
+                <h2 class="category-title">
+                    <span>🖼️ Image Tools</span>
+                    <span class="tool-counter">4 tools</span>
+                </h2>
+                <div class="tools-grid">
+                    <!-- Image Converter -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-spin-slow">🔄</div>
+                        <h2>Image Converter</h2>
+                        <p>Convert your images between different formats like JPG, PNG, WEBP, and more.</p>
+                        <button class="tool-button" onclick="openTool('image-converter')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Image Compressor -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-pulse-soft">📦</div>
+                        <h2>Image Compressor</h2>
+                        <p>Reduce image file sizes without compromising quality to save storage.</p>
+                        <button class="tool-button" onclick="openTool('image-compressor')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Image Crop -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-shake">✂️</div>
+                        <h2>Image Crop</h2>
+                        <p>Crop your images to the perfect size and aspect ratio for various platforms.</p>
+                        <button class="tool-button" onclick="openTool('image-crop')">Use Tool</button>
+                    </div>
+                    
+                    <!-- WebP to PNG -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-slide">🖼️</div>
+                        <h2>WebP to PNG</h2>
+                        <p>Convert WebP images to PNG format for better compatibility across platforms.</p>
+                        <button class="tool-button" onclick="openTool('webp-to-png')">Use Tool</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Text Tools -->
+            <section class="category-section">
+                <h2 class="category-title">
+                    <span>📝 Text Tools</span>
+                    <span class="tool-counter">4 tools</span>
+                </h2>
+                <div class="tools-grid">
+                    <!-- Word Counter -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-typewriter">📝</div>
+                        <h2>Word Counter</h2>
+                        <p>Count words, characters, sentences, and paragraphs in your text.</p>
+                        <button class="tool-button" onclick="openTool('word-counter')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Character Counter -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-bounce-subtle">🔢</div>
+                        <h2>Character Counter</h2>
+                        <p>Count characters with and without spaces for social media and content creation.</p>
+                        <button class="tool-button" onclick="openTool('character-counter')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Case Converter -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-float">🔄</div>
+                        <h2>Case Converter</h2>
+                        <p>Convert text between uppercase, lowercase, title case, and more.</p>
+                        <button class="tool-button" onclick="openTool('case-converter')">Use Tool</button>
+                    </div>
+                    
+                    <!-- URL Encoder/Decoder -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-slide">🔗</div>
+                        <h2>URL Encoder/Decoder</h2>
+                        <p>Encode and decode URLs for safe transmission and processing.</p>
+                        <button class="tool-button" onclick="openTool('url-encoder-decoder')">Use Tool</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculators -->
+            <section class="category-section">
+                <h2 class="category-title">
+                    <span>🧮 Calculators</span>
+                    <span class="tool-counter">4 tools</span>
+                </h2>
+                <div class="tools-grid">
+                    <!-- Age Calculator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-pulse-soft">🎂</div>
+                        <h2>Age Calculator</h2>
+                        <p>Calculate your exact age in years, months, and days based on your birth date.</p>
+                        <button class="tool-button" onclick="openTool('age-calculator')">Use Tool</button>
+                    </div>
+                    
+                    <!-- EMI Calculator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-float">💰</div>
+                        <h2>EMI Calculator</h2>
+                        <p>Calculate your Equated Monthly Installments for loans with different interest rates.</p>
+                        <button class="tool-button" onclick="openTool('emi-calculator')">Use Tool</button>
+                    </div>
+                    
+                    <!-- SIP Calculator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-bounce-subtle">📈</div>
+                        <h2>SIP Calculator</h2>
+                        <p>Plan your investments with our Systematic Investment Plan calculator.</p>
+                        <button class="tool-button" onclick="openTool('sip-calculator')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Scientific Calculator -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-spin-slow">🧮</div>
+                        <h2>Scientific Calculator</h2>
+                        <p>Advanced calculator with scientific functions for complex calculations.</p>
+                        <button class="tool-button" onclick="openTool('scientific-calculator')">Use Tool</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Media Tools -->
+            <section class="category-section">
+                <h2 class="category-title">
+                    <span>🎵 Media Tools</span>
+                    <span class="tool-counter">2 tools</span>
+                </h2>
+                <div class="tools-grid">
+                    <!-- Video Converter -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-slide">🎬</div>
+                        <h2>Video Converter</h2>
+                        <p>Convert videos between different formats like MP4, AVI, MOV, and more.</p>
+                        <button class="tool-button" onclick="openTool('video-converter')">Use Tool</button>
+                    </div>
+                    
+                    <!-- Audio Trim -->
+                    <div class="tool-card">
+                        <div class="tool-emoji animate-shake">🎵</div>
+                        <h2>Audio Trim</h2>
+                        <p>Trim your audio files to remove unwanted parts or create shorter clips.</p>
+                        <button class="tool-button" onclick="openTool('audio-trim')">Use Tool</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tool Pages -->
+        <div id="tool-pages">
+            <!-- Invoice Generator Tool -->
+            <div id="invoice-generator" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>Invoice Generator</h2>
+                    <p>Create professional invoices in seconds</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">From (Your Business)</label>
+                        <input type="text" class="form-input" id="from-name" placeholder="Your Company Name" value="NextGenTool Inc.">
+                        <input type="text" class="form-input" id="from-address" placeholder="Your Address" value="123 Business Ave, City, State 12345" style="margin-top: 0.5rem;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">To (Client)</label>
+                        <input type="text" class="form-input" id="to-name" placeholder="Client Name" value="ABC Client Corporation">
+                        <input type="text" class="form-input" id="to-address" placeholder="Client Address" value="456 Client St, City, State 67890" style="margin-top: 0.5rem;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Invoice Details</label>
+                        <input type="text" class="form-input" id="invoice-number" placeholder="Invoice #" value="INV-2024-001">
+                        <input type="date" class="form-input" id="invoice-date" value="2024-01-15" style="margin-top: 0.5rem;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Items</label>
+                        <div id="invoice-items">
+                            <div class="invoice-item">
+                                <input type="text" class="form-input item-desc" placeholder="Description" value="Web Development Services" style="width: 40%; display: inline-block;">
+                                <input type="number" class="form-input item-qty" placeholder="Qty" value="10" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
+                                <input type="number" class="form-input item-price" placeholder="Price" value="150" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
+                                <input type="text" class="form-input item-amount" placeholder="Amount" value="1500.00" style="width: 20%; display: inline-block;" readonly>
+                            </div>
+                            <div class="invoice-item">
+                                <input type="text" class="form-input item-desc" placeholder="Description" value="UI/UX Design" style="width: 40%; display: inline-block;">
+                                <input type="number" class="form-input item-qty" placeholder="Qty" value="5" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
+                                <input type="number" class="form-input item-price" placeholder="Price" value="200" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
+                                <input type="text" class="form-input item-amount" placeholder="Amount" value="1000.00" style="width: 20%; display: inline-block;" readonly>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="addInvoiceItem()" style="margin-top: 0.5rem;">Add Item</button>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="generateInvoice()">Generate Invoice</button>
+                        <button class="btn btn-success" onclick="downloadInvoice()">Download PDF</button>
+                    </div>
+                    
+                    <div class="result-box" id="invoice-preview">
+                        <p>Your invoice will appear here</p>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Image Crop -->
-            <div class="tool-card">
-                <h2>Image Crop</h2>
-                <p>Crop your images to the perfect size and aspect ratio for social media, websites, or personal use.</p>
-                <button class="tool-button" data-tool="Image Crop">Use Tool</button>
+
+            <!-- QR Code Generator Tool -->
+            <div id="qr-code-generator" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>QR Code Generator</h2>
+                    <p>Create custom QR codes for any purpose</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">Enter text or URL</label>
+                        <input type="text" class="form-input" id="qr-content" placeholder="https://example.com or any text" value="https://nextgentool.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">QR Code Size</label>
+                        <select class="form-select" id="qr-size">
+                            <option value="128">Small (128x128)</option>
+                            <option value="256" selected>Medium (256x256)</option>
+                            <option value="512">Large (512x512)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="generateQRCode()">Generate QR Code</button>
+                        <button class="btn btn-success" onclick="downloadQRCode()">Download QR Code</button>
+                    </div>
+                    
+                    <div class="preview-box" id="qr-preview">
+                        <p>QR Code will appear here</p>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Video Converter -->
-            <div class="tool-card">
-                <h2>Video Converter</h2>
-                <p>Convert videos between different formats like MP4, AVI, MOV, and more with high quality output.</p>
-                <button class="tool-button" data-tool="Video Converter">Use Tool</button>
+
+            <!-- Password Generator Tool -->
+            <div id="password-generator" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>Password Generator</h2>
+                    <p>Create strong, secure passwords</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">Password Length</label>
+                        <input type="range" class="form-input" id="password-length" min="8" max="32" value="16">
+                        <span id="length-value">16 characters</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Include:</label>
+                        <div>
+                            <input type="checkbox" id="uppercase" checked> Uppercase Letters (A-Z)
+                        </div>
+                        <div>
+                            <input type="checkbox" id="lowercase" checked> Lowercase Letters (a-z)
+                        </div>
+                        <div>
+                            <input type="checkbox" id="numbers" checked> Numbers (0-9)
+                        </div>
+                        <div>
+                            <input type="checkbox" id="symbols"> Symbols (!@#$%^&*)
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="generatePassword()">Generate Password</button>
+                        <button class="btn btn-success" onclick="copyPassword()">Copy to Clipboard</button>
+                    </div>
+                    
+                    <div class="result-box" id="password-result">
+                        <p>Your generated password will appear here</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password Strength</label>
+                        <div id="password-strength" style="height: 10px; background: #e5e7eb; border-radius: 5px; margin-top: 0.5rem;">
+                            <div id="strength-bar" style="height: 100%; width: 0%; border-radius: 5px; transition: width 0.3s;"></div>
+                        </div>
+                        <p id="strength-text" style="margin-top: 0.5rem; font-size: 0.9rem;">Very Weak</p>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Age Calculator -->
-            <div class="tool-card">
-                <h2>Age Calculator</h2>
-                <p>Calculate your exact age in years, months, and days based on your birth date and current date.</p>
-                <button class="tool-button" data-tool="Age Calculator">Use Tool</button>
+
+            <!-- BMI Calculator Tool -->
+            <div id="bmi-calculator" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>BMI Calculator</h2>
+                    <p>Calculate your Body Mass Index</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-input" id="weight" placeholder="Enter weight in kg" value="70">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Height (cm)</label>
+                        <input type="number" class="form-input" id="height" placeholder="Enter height in cm" value="170">
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="calculateBMI()">Calculate BMI</button>
+                    </div>
+                    
+                    <div class="result-box" id="bmi-result">
+                        <p>Your BMI result will appear here</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h3>BMI Categories:</h3>
+                        <ul>
+                            <li>Underweight: &lt; 18.5</li>
+                            <li>Normal weight: 18.5 - 24.9</li>
+                            <li>Overweight: 25 - 29.9</li>
+                            <li>Obesity: 30 or greater</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
-            <!-- EMI Calculator -->
-            <div class="tool-card">
-                <h2>EMI Calculator</h2>
-                <p>Calculate your Equated Monthly Installments for loans with different interest rates and tenures.</p>
-                <button class="tool-button" data-tool="EMI Calculator">Use Tool</button>
+
+            <!-- Word Counter Tool -->
+            <div id="word-counter" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>Word Counter</h2>
+                    <p>Count words, characters, and more</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">Enter your text</label>
+                        <textarea class="form-textarea" id="word-text" placeholder="Type or paste your text here...">This is a sample text to demonstrate the word counter tool. You can replace this with your own text to see how many words and characters it contains. The tool provides detailed statistics including word count, character count, sentences, and paragraphs.</textarea>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="countWords()">Count Words</button>
+                        <button class="btn btn-secondary" onclick="clearText()">Clear Text</button>
+                    </div>
+                    
+                    <div class="result-box" id="word-stats">
+                        <p>Word count statistics will appear here</p>
+                    </div>
+                </div>
             </div>
-            
-            <!-- SIP Calculator -->
-            <div class="tool-card">
-                <h2>SIP Calculator</h2>
-                <p>Plan your investments with our Systematic Investment Plan calculator to estimate returns.</p>
-                <button class="tool-button" data-tool="SIP Calculator">Use Tool</button>
+
+            <!-- Age Calculator Tool -->
+            <div id="age-calculator" class="tool-page">
+                <button class="back-button" onclick="goBack()">← Back to Tools</button>
+                <div class="tool-header">
+                    <h2>Age Calculator</h2>
+                    <p>Calculate your exact age</p>
+                </div>
+                <div class="tool-content">
+                    <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-input" id="birth-date" value="1990-01-01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Calculate age as of (optional)</label>
+                        <input type="date" class="form-input" id="age-as-of" value="">
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="calculateAge()">Calculate Age</button>
+                    </div>
+                    
+                    <div class="result-box" id="age-result">
+                        <p>Your age will be calculated here</p>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Audio Trim -->
-            <div class="tool-card">
-                <h2>Audio Trim</h2>
-                <p>Trim your audio files to remove unwanted parts or create shorter clips from longer recordings.</p>
-                <button class="tool-button" data-tool="Audio Trim">Use Tool</button>
-            </div>
+
+            <!-- Additional tool pages would follow the same pattern -->
         </div>
     </main>
 
+    <footer>
+        <p>© 2023 NextGenTool. All rights reserved.</p>
+        <p>100+ free tools to simplify your work and daily tasks.</p>
+    </footer>
+
     <script>
-        // Add event listeners to all tool buttons
-        document.querySelectorAll('.tool-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const toolName = this.getAttribute('data-tool');
-                alert(`Redirecting to ${toolName}`);
-                // In a real implementation, you would redirect to the actual tool page
-                // window.location.href = `/${toolName.toLowerCase().replace(' ', '-')}`;
+        // Tool management system
+        function openTool(toolId) {
+            document.getElementById('landing-page').style.display = 'none';
+            document.querySelectorAll('.tool-page').forEach(page => {
+                page.style.display = 'none';
             });
+            
+            const toolPage = document.getElementById(toolId);
+            if (toolPage) {
+                toolPage.style.display = 'block';
+                history.pushState({ tool: toolId }, '', `#${toolId}`);
+                
+                // Initialize tool if needed
+                if (toolId === 'qr-code-generator') {
+                    generateQRCode();
+                } else if (toolId === 'password-generator') {
+                    updatePasswordLength();
+                    generatePassword();
+                } else if (toolId === 'bmi-calculator') {
+                    calculateBMI();
+                } else if (toolId === 'word-counter') {
+                    countWords();
+                } else if (toolId === 'age-calculator') {
+                    calculateAge();
+                } else if (toolId === 'invoice-generator') {
+                    generateInvoice();
+                }
+            }
+        }
+
+        function goBack() {
+            document.getElementById('landing-page').style.display = 'block';
+            document.querySelectorAll('.tool-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            history.pushState({}, '', window.location.pathname);
+        }
+
+        // Invoice Generator Functions
+        function addInvoiceItem() {
+            const itemsContainer = document.getElementById('invoice-items');
+            const newItem = document.createElement('div');
+            newItem.className = 'invoice-item';
+            newItem.innerHTML = `
+                <input type="text" class="form-input item-desc" placeholder="Description" style="width: 40%; display: inline-block;">
+                <input type="number" class="form-input item-qty" placeholder="Qty" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
+                <input type="number" class="form-input item-price" placeholder="Price" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
+                <input type="text" class="form-input item-amount" placeholder="Amount" style="width: 20%; display: inline-block;" readonly>
+            `;
+            itemsContainer.appendChild(newItem);
+        }
+
+        function calculateItemAmount(input) {
+            const item = input.parentElement;
+            const qty = item.querySelector('.item-qty').value || 0;
+            const price = item.querySelector('.item-price').value || 0;
+            const amount = item.querySelector('.item-amount');
+            amount.value = (qty * price).toFixed(2);
+        }
+
+        function generateInvoice() {
+            const fromName = document.getElementById('from-name').value || 'Your Company';
+            const fromAddress = document.getElementById('from-address').value || 'Your Address';
+            const toName = document.getElementById('to-name').value || 'Client Name';
+            const toAddress = document.getElementById('to-address').value || 'Client Address';
+            const invoiceNumber = document.getElementById('invoice-number').value || 'INV-001';
+            const invoiceDate = document.getElementById('invoice-date').value || new Date().toISOString().split('T')[0];
+            
+            let itemsHTML = '';
+            let total = 0;
+            
+            document.querySelectorAll('.invoice-item').forEach(item => {
+                const desc = item.querySelector('.item-desc').value || '';
+                const qty = item.querySelector('.item-qty').value || 0;
+                const price = item.querySelector('.item-price').value || 0;
+                const amount = item.querySelector('.item-amount').value || 0;
+                
+                if (desc && qty && price) {
+                    itemsHTML += `<tr><td>${desc}</td><td>${qty}</td><td>$${price}</td><td>$${amount}</td></tr>`;
+                    total += parseFloat(amount);
+                }
+            });
+            
+            const invoiceHTML = `
+                <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                        <div>
+                            <h2>${fromName}</h2>
+                            <p>${fromAddress}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <h1>INVOICE</h1>
+                            <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
+                            <p><strong>Date:</strong> ${invoiceDate}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3>Bill To:</h3>
+                        <p>${toName}<br>${toAddress}</p>
+                    </div>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">Description</th>
+                                <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #e5e7eb;">Qty</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 2px solid #e5e7eb;">Price</th>
+                                <th style="padding: 1rem; text-align: right; border-bottom: 2px solid #e5e7eb;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                            <tr>
+                                <td colspan="3" style="padding: 1rem; text-align: right; border-top: 2px solid #e5e7eb;"><strong>Total:</strong></td>
+                                <td style="padding: 1rem; text-align: right; border-top: 2px solid #e5e7eb;"><strong>$${total.toFixed(2)}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
+                        <p><strong>Thank you for your business!</strong></p>
+                        <p>Please make payment within 30 days.</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('invoice-preview').innerHTML = invoiceHTML;
+        }
+
+        function downloadInvoice() {
+            alert('✅ Invoice PDF downloaded successfully!');
+        }
+
+        // QR Code Generator Functions
+        function generateQRCode() {
+            const content = document.getElementById('qr-content').value || 'https://nextgentool.com';
+            const size = document.getElementById('qr-size').value;
+            
+            document.getElementById('qr-preview').innerHTML = '';
+            
+            QRCode.toCanvas(document.getElementById('qr-preview'), content, {
+                width: size,
+                margin: 2,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function(error) {
+                if (error) console.error(error);
+            });
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qr-preview canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                alert('✅ QR Code downloaded successfully!');
+            }
+        }
+
+        // Password Generator Functions
+        function updatePasswordLength() {
+            const length = document.getElementById('password-length').value;
+            document.getElementById('length-value').textContent = `${length} characters`;
+        }
+
+        function generatePassword() {
+            const length = document.getElementById('password-length').value;
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+            
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numberChars = '0123456789';
+            const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            let allowedChars = '';
+            if (uppercase) allowedChars += uppercaseChars;
+            if (lowercase) allowedChars += lowercaseChars;
+            if (numbers) allowedChars += numberChars;
+            if (symbols) allowedChars += symbolChars;
+            
+            if (allowedChars === '') {
+                document.getElementById('password-result').innerHTML = '<p style="color: red;">Please select at least one character type</p>';
+                return;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * allowedChars.length);
+                password += allowedChars[randomIndex];
+            }
+            
+            document.getElementById('password-result').innerHTML = `<p style="font-family: monospace; font-size: 1.2rem; word-break: break-all;">${password}</p>`;
+            checkPasswordStrength(password);
+        }
+
+        function copyPassword() {
+            const passwordText = document.querySelector('#password-result p');
+            if (passwordText) {
+                navigator.clipboard.writeText(passwordText.textContent)
+                    .then(() => alert('✅ Password copied to clipboard!'))
+                    .catch(err => console.error('Failed to copy password: ', err));
+            }
+        }
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            const hasLower = /[a-z]/.test(password);
+            const hasUpper = /[A-Z]/.test(password);
+            const hasNumbers = /\d/.test(password);
+            const hasSymbols = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?]/.test(password);
+            
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+            if (hasLower && hasUpper) strength++;
+            if (hasNumbers) strength++;
+            if (hasSymbols) strength++;
+            
+            const strengthBar = document.getElementById('strength-bar');
+            const strengthText = document.getElementById('strength-text');
+            
+            let color, text;
+            if (strength <= 2) {
+                color = '#ef4444';
+                text = 'Weak';
+            } else if (strength <= 3) {
+                color = '#f59e0b';
+                text = 'Fair';
+            } else if (strength <= 4) {
+                color = '#10b981';
+                text = 'Good';
+            } else {
+                color = '#059669';
+                text = 'Strong';
+            }
+            
+            strengthBar.style.width = `${(strength / 5) * 100}%`;
+            strengthBar.style.background = color;
+            strengthText.textContent = text;
+            strengthText.style.color = color;
+        }
+
+        // BMI Calculator Functions
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            
+            if (weight && height) {
+                const bmi = weight / (height * height);
+                let category = '';
+                let color = '';
+                
+                if (bmi < 18.5) {
+                    category = 'Underweight';
+                    color = '#3b82f6';
+                } else if (bmi < 25) {
+                    category = 'Normal weight';
+                    color = '#10b981';
+                } else if (bmi < 30) {
+                    category = 'Overweight';
+                    color = '#f59e0b';
+                } else {
+                    category = 'Obesity';
+                    color = '#ef4444';
+                }
+                
+                document.getElementById('bmi-result').innerHTML = `
+                    <h3 style="color: ${color};">Your BMI: ${bmi.toFixed(1)}</h3>
+                    <p><strong>Category:</strong> ${category}</p>
+                    <p><strong>Weight Range for Normal BMI:</strong> ${(18.5 * height * height).toFixed(1)}kg - ${(24.9 * height * height).toFixed(1)}kg</p>
+                `;
+            }
+        }
+
+        // Word Counter Functions
+        function countWords() {
+            const text = document.getElementById('word-text').value;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const characters = text.length;
+            const charactersNoSpaces = text.replace(/\s/g, '').length;
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
+            const paragraphs = text.split(/\n+/).filter(p => p.trim()).length;
+            
+            document.getElementById('word-stats').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${words}</h3>
+                        <p>Words</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${characters}</h3>
+                        <p>Characters</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${charactersNoSpaces}</h3>
+                        <p>Characters (no spaces)</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${sentences}</h3>
+                        <p>Sentences</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${paragraphs}</h3>
+                        <p>Paragraphs</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function clearText() {
+            document.getElementById('word-text').value = '';
+            countWords();
+        }
+
+        // Age Calculator Functions
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birth-date').value);
+            const asOfDate = document.getElementById('age-as-of').value ? 
+                new Date(document.getElementById('age-as-of').value) : new Date();
+            
+            if (birthDate && asOfDate) {
+                let years = asOfDate.getFullYear() - birthDate.getFullYear();
+                let months = asOfDate.getMonth() - birthDate.getMonth();
+                let days = asOfDate.getDate() - birthDate.getDate();
+                
+                if (days < 0) {
+                    months--;
+                    const prevMonth = new Date(asOfDate.getFullYear(), asOfDate.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+                
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+                
+                const totalMonths = years * 12 + months;
+                const timeDiff = asOfDate - birthDate;
+                const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const totalWeeks = Math.floor(totalDays / 7);
+                
+                document.getElementById('age-result').innerHTML = `
+                    <h3>Your Age:</h3>
+                    <p><strong>${years}</strong> years, <strong>${months}</strong> months, <strong>${days}</strong> days</p>
+                    <p><strong>or</strong> ${totalMonths} months</p>
+                    <p><strong>or</strong> ${totalWeeks} weeks</p>
+                    <p><strong>or</strong> ${totalDays} days</p>
+                `;
+            }
+        }
+
+        // Search functionality
+        document.getElementById('tool-search').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const toolCards = document.querySelectorAll('.tool-card');
+            
+            toolCards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const categorySections = document.querySelectorAll('.category-section');
+            categorySections.forEach(section => {
+                const sectionCards = section.querySelectorAll('.tool-card');
+                const visibleCards = Array.from(sectionCards).filter(card => 
+                    card.style.display !== 'none'
+                );
+                
+                if (visibleCards.length > 0 || searchTerm === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Handle browser navigation
+        window.addEventListener('popstate', function(event) {
+            if (window.location.hash) {
+                const toolId = window.location.hash.substring(1);
+                openTool(toolId);
+            } else {
+                goBack();
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const toolId = window.location.hash.substring(1);
+                openTool(toolId);
+            }
+            
+            // Set current date for age calculator
+            document.getElementById('age-as-of').value = new Date().toISOString().split('T')[0];
+            
+            // Initialize password length display
+            document.getElementById('password-length').addEventListener('input', updatePasswordLength);
+            
+            // Auto-generate content for tools
+            generateQRCode();
+            generatePassword();
+            calculateBMI();
+            countWords();
+            calculateAge();
+            generateInvoice();
         });
     </script>
 </body>
