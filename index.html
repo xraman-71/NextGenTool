@@ -789,10 +789,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="convertImage()" id="convert-btn" disabled>
+                    <button class="btn btn-primary" onclick="convertImage()" id="convert-btn">
                         <i class="fas fa-sync-alt"></i> Convert Image
                     </button>
-                    <button class="btn btn-success" onclick="downloadConvertedImage()" id="download-btn" disabled>
+                    <button class="btn btn-success" onclick="downloadConvertedImage()" id="download-btn">
                         <i class="fas fa-download"></i> Download Converted
                     </button>
                 </div>
@@ -831,10 +831,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="compressImage()" id="compress-btn" disabled>
+                    <button class="btn btn-primary" onclick="compressImage()" id="compress-btn">
                         <i class="fas fa-compress-alt"></i> Compress Image
                     </button>
-                    <button class="btn btn-success" onclick="downloadCompressedImage()" id="download-compressed-btn" disabled>
+                    <button class="btn btn-success" onclick="downloadCompressedImage()" id="download-compressed-btn">
                         <i class="fas fa-download"></i> Download Compressed
                     </button>
                 </div>
@@ -882,10 +882,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="cropImage()" id="crop-btn" disabled>
+                    <button class="btn btn-primary" onclick="cropImage()" id="crop-btn">
                         <i class="fas fa-crop-alt"></i> Crop Image
                     </button>
-                    <button class="btn btn-success" onclick="downloadCroppedImage()" id="download-crop-btn" disabled>
+                    <button class="btn btn-success" onclick="downloadCroppedImage()" id="download-crop-btn">
                         <i class="fas fa-download"></i> Download Cropped
                     </button>
                 </div>
@@ -927,10 +927,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="convertWebp()" id="webp-convert-btn" disabled>
+                    <button class="btn btn-primary" onclick="convertWebp()" id="webp-convert-btn">
                         <i class="fas fa-sync-alt"></i> Convert WebP
                     </button>
-                    <button class="btn btn-success" onclick="downloadWebpConverted()" id="webp-download-btn" disabled>
+                    <button class="btn btn-success" onclick="downloadWebpConverted()" id="webp-download-btn">
                         <i class="fas fa-download"></i> Download Converted
                     </button>
                 </div>
@@ -983,10 +983,10 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="resizeImage()" id="resize-btn" disabled>
+                    <button class="btn btn-primary" onclick="resizeImage()" id="resize-btn">
                         <i class="fas fa-expand-alt"></i> Resize Image
                     </button>
-                    <button class="btn btn-success" onclick="downloadResizedImage()" id="download-resize-btn" disabled>
+                    <button class="btn btn-success" onclick="downloadResizedImage()" id="download-resize-btn">
                         <i class="fas fa-download"></i> Download Resized
                     </button>
                 </div>
@@ -1909,12 +1909,6 @@
             const file = input.files[0];
             if (!file) return;
             
-            // Reset previous state
-            if (toolType === 'converter') {
-                currentConvertedImage = null;
-                document.getElementById('download-btn').disabled = true;
-            }
-            
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = new Image();
@@ -1930,8 +1924,6 @@
                     // Update preview based on tool type
                     updateImagePreview(toolType);
                     
-                    // Enable action button
-                    document.getElementById(`${toolType}-btn`).disabled = false;
                 };
                 img.onerror = function() {
                     alert('Error: Failed to load the image. Please try another file.');
@@ -2025,9 +2017,6 @@
                             convertedInfo.textContent = `Format: ${targetFormat.toUpperCase()} | Size: ${currentImageData.width}x${currentImageData.height}`;
                         }
                         
-                        // Enable download button
-                        document.getElementById('download-btn').disabled = false;
-                        
                     };
                     img.src = currentImageData.src;
                     
@@ -2093,7 +2082,6 @@
                 
                 document.getElementById('compressed-info').textContent = 
                     `Format: JPEG | Quality: ${quality * 100}% | Size: ${formatFileSize(compressedSize)} | Savings: ${savings}%`;
-                document.getElementById('download-compressed-btn').disabled = false;
             };
             img.src = currentImageData.src;
         }
@@ -2138,7 +2126,6 @@
                 ctx.drawImage(img, 0, 0, width, height);
                 currentCroppedImage = canvas.toDataURL();
                 document.getElementById('cropped-info').textContent = `Size: ${width}x${height} | Format: PNG`;
-                document.getElementById('download-crop-btn').disabled = false;
             };
             img.src = currentImageData.src;
         }
@@ -2201,7 +2188,6 @@
                 ctx.drawImage(img, 0, 0, width, height);
                 currentResizedImage = canvas.toDataURL();
                 document.getElementById('resized-info').textContent = `Size: ${width}x${height} | Format: PNG`;
-                document.getElementById('download-resize-btn').disabled = false;
             };
             img.src = currentImageData.src;
         }
@@ -2241,7 +2227,6 @@
                 document.getElementById('webp-original').src = e.target.result;
                 document.getElementById('webp-original-info').textContent = `Format: WebP | File: ${formatFileSize(file.size)}`;
                 document.getElementById('webp-preview').style.display = 'grid';
-                document.getElementById('webp-convert-btn').disabled = false;
             };
             reader.readAsDataURL(file);
         }
@@ -2275,7 +2260,6 @@
                 const convertedImage = canvas.toDataURL(mimeType);
                 document.getElementById('webp-converted').src = convertedImage;
                 document.getElementById('webp-converted-info').textContent = `Format: ${targetFormat.toUpperCase()} | Size: ${img.width}x${img.height}`;
-                document.getElementById('webp-download-btn').disabled = false;
                 
                 // Store for download
                 currentWebpImage.converted = convertedImage;
@@ -2480,7 +2464,7 @@
             });
         }
 
-        // Calculator Functions - FIXED
+        // Calculator Functions
         function calculateBMI() {
             const weight = parseFloat(document.getElementById('weight-input').value);
             const height = parseFloat(document.getElementById('height-input').value) / 100;
@@ -2579,7 +2563,6 @@
             document.getElementById('percentage-result').style.display = 'block';
         }
 
-        // FIXED Age Calculator
         function calculateAge() {
             const birthDate = new Date(document.getElementById('birth-date').value);
             const today = new Date();
@@ -2616,7 +2599,6 @@
             document.getElementById('age-result').style.display = 'block';
         }
 
-        // FIXED Unit Converter
         function convertUnits() {
             const value = parseFloat(document.getElementById('unit-value').value);
             const fromUnit = document.getElementById('from-unit').value;
