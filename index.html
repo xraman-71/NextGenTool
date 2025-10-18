@@ -3,361 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGenTool - 100+ Free Online Tools</title>
+    <title>NextGenTool - Professional Online Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
-        /* Base Styles */
+        /* CSS Variables for Consistent Design System */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            --info-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --dark-bg: #0f172a;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Base Reset and Typography */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f8fafc;
-            color: #334155;
-            line-height: 1.6;
-            padding-bottom: 2rem;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
         }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2.5rem 1rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
         }
 
-        h1 {
-            font-size: 2.8rem;
-            color: white;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Minimalistic Professional Header */
+        .professional-header {
+            background: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .tagline {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 0.5rem;
-            font-weight: 400;
+        .logo-accent {
+            color: #667eea;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: #f1f5f9;
+        }
+
+        .nav-link.active {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.08);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: #667eea;
+            border-radius: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            padding: 0.25rem 0.5rem;
+            outline: none;
+            width: 200px;
+            color: var(--text-primary);
         }
 
         /* Main Content */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 2rem 1.5rem;
         }
 
-        /* Search Bar */
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            background-color: white;
-            color: #334155;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1.2rem;
-        }
-
-        /* Tools Grid */
-        .tools-grid {
+        /* Tool Categories Navigation */
+        .tool-categories {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
         }
 
-        /* Tool Card Styles */
-        .tool-card {
-            background-color: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            border: 1px solid #f1f5f9;
+        .category-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .tool-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        .category-card.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), var(--shadow-lg);
         }
 
-        .tool-card:hover::before {
-            transform: scaleX(1);
+        .category-card[data-category="image"] {
+            border-left: 4px solid #667eea;
         }
 
-        .tool-card h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: #1e293b;
-            font-weight: 600;
+        .category-card[data-category="text"] {
+            border-left: 4px solid #10b981;
         }
 
-        .tool-card p {
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            color: #64748b;
-            line-height: 1.6;
+        .category-card[data-category="calculators"] {
+            border-left: 4px solid #f59e0b;
         }
 
-        /* Button Styles */
-        .tool-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            align-self: flex-start;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
-            text-decoration: none;
-            display: inline-block;
+        .category-card[data-category="converters"] {
+            border-left: 4px solid #ef4444;
         }
 
-        .tool-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+        .category-card[data-category="generators"] {
+            border-left: 4px solid #8b5cf6;
         }
 
-        /* Tool Emoji */
-        .tool-emoji {
-            font-size: 2.8rem;
-            margin-bottom: 1.2rem;
-            display: inline-block;
+        .category-card[data-category="seo"] {
+            border-left: 4px solid #06b6d4;
         }
 
-        /* Badge Styles */
-        .badge {
-            display: inline-block;
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-top: 0.8rem;
-            margin-right: 0.5rem;
-        }
-
-        .badge-business {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-trending {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
-        .badge-essential {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-popular {
-            background-color: #e0e7ff;
-            color: #3730a3;
-        }
-
-        .badge-health {
-            background-color: #fce7f3;
-            color: #9d174d;
-        }
-
-        .badge-seo {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-social {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        /* Enhanced Animation Classes */
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-bounce-subtle {
-            animation: bounce-subtle 2s ease-in-out infinite;
-        }
-
-        .animate-shake {
-            animation: shake 2s ease-in-out infinite;
-        }
-
-        .animate-spin-slow {
-            animation: spin-slow 8s linear infinite;
-        }
-
-        .animate-pulse-soft {
-            animation: pulse-soft 2s ease-in-out infinite;
-        }
-
-        .animate-slide {
-            animation: slide 3s ease-in-out infinite;
-        }
-
-        .animate-typewriter {
-            animation: typewriter 4s steps(40) infinite;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 2px solid;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes bounce-subtle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-2deg); }
-            75% { transform: rotate(2deg); }
-        }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse-soft {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-        }
-
-        @keyframes slide {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(5px); }
-        }
-
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* Category Sections */
-        .category-section {
-            margin-bottom: 3.5rem;
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
 
         .category-title {
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid #f1f5f9;
-            font-size: 1.6rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
 
-        /* Tool Counter */
-        .tool-counter {
-            background: #f1f5f9;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+        .category-count {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            color: #64748b;
-            margin-left: auto;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            color: #64748b;
-            border-top: 1px solid #f1f5f9;
+        .category-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            line-height: 1.5;
         }
 
-        /* Tool Page Styles */
+        /* Tool Pages */
         .tool-page {
             display: none;
-            min-height: 80vh;
-            padding: 2rem 0;
+            min-height: 60vh;
+        }
+
+        .tool-page.active {
+            display: block;
         }
 
         .tool-header {
-            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .tool-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-card.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), var(--shadow-md);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tool-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .tool-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Tool Content */
+        .tool-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+            display: none;
+        }
+
+        .tool-content.active {
+            display: block;
         }
 
         .back-button {
             background: #64748b;
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
             cursor: pointer;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .back-button:hover {
             background: #475569;
-            transform: translateY(-2px);
-        }
-
-        .tool-content {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            margin-bottom: 2rem;
+            transform: translateY(-1px);
         }
 
         /* Form Styles */
@@ -368,17 +387,18 @@
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #374151;
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
         .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 0.75rem 1rem;
-            border: 2px solid #e5e7eb;
+            border: 1px solid var(--border-light);
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: var(--transition);
+            background: white;
         }
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
@@ -392,24 +412,6 @@
             resize: vertical;
         }
 
-        .result-box {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            min-height: 100px;
-        }
-
-        .preview-box {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
         .action-buttons {
             display: flex;
             gap: 1rem;
@@ -421,19 +423,23 @@
             padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #667eea;
             color: white;
         }
 
-        .btn-secondary {
-            background: #64748b;
-            color: white;
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
         }
 
         .btn-success {
@@ -441,941 +447,2479 @@
             color: white;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .btn-success:hover {
+            background: #0da271;
+            transform: translateY(-1px);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .calculation-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .result-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .result-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Image Preview Styles */
+        .image-preview-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .image-preview {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            background: white;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 6px;
+        }
+
+        .preview-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .image-info {
+            background: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        /* QR Code Preview */
+        .qr-preview {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .qr-preview canvas {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+        }
+
+        /* Password Strength Meter */
+        .password-strength {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .tools-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .category-title {
-                font-size: 1.4rem;
-            }
-            
-            .action-buttons {
+            .header-content {
                 flex-direction: column;
+                gap: 1rem;
             }
-        }
 
-        @media (max-width: 480px) {
-            .tool-card {
-                padding: 1.5rem;
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
-            
-            h1 {
-                font-size: 1.9rem;
+
+            .search-box {
+                width: 100%;
             }
-            
+
+            .search-input {
+                width: 100%;
+            }
+
+            .tool-categories {
+                grid-template-columns: 1fr;
+            }
+
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .image-preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        .professional-footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>NextGenTool</h1>
-        <p class="tagline">100+ Free Online Tools for Everyone</p>
-        <p class="tagline">Fast, privacy-friendly, no sign-up required.</p>
-    </header>
-    
-    <main id="main-content">
-        <!-- Landing Page Content -->
-        <div id="landing-page">
-            <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" class="search-input" id="tool-search" placeholder="Search tools (e.g., image converter, calculator)" aria-label="Search tools">
-                <div class="search-icon">🔍</div>
+    <!-- Minimalistic Professional Header -->
+    <header class="professional-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="#" class="logo" onclick="showHomePage()">
+                    <span class="logo-accent">NextGen</span>Tool
+                </a>
             </div>
-
-            <!-- Trending & Popular Tools -->
-            <section class="category-section">
-                <h2 class="category-title">
-                    <span>🔥 Trending & Popular Tools</span>
-                    <span class="tool-counter">7 tools</span>
-                </h2>
-                <div class="tools-grid">
-                    <!-- Invoice Generator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-float">📄</div>
-                        <h2>Invoice Generator</h2>
-                        <p>Create professional invoices quickly and easily with customizable templates.</p>
-                        <button class="tool-button" onclick="openTool('invoice-generator')">Use Tool</button>
-                        <span class="badge badge-business">Business</span>
-                    </div>
-                    
-                    <!-- QR Code Generator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-spin-slow">🔳</div>
-                        <h2>QR Code Generator</h2>
-                        <p>Create custom QR codes for websites, contact information, and more.</p>
-                        <button class="tool-button" onclick="openTool('qr-code-generator')">Use Tool</button>
-                        <span class="badge badge-trending">Trending</span>
-                    </div>
-                    
-                    <!-- Password Generator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-shake">🔒</div>
-                        <h2>Password Generator</h2>
-                        <p>Generate strong, secure passwords with customizable length and character types.</p>
-                        <button class="tool-button" onclick="openTool('password-generator')">Use Tool</button>
-                        <span class="badge badge-essential">Essential</span>
-                    </div>
-                    
-                    <!-- Image Resizer -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-slide">📏</div>
-                        <h2>Image Resizer</h2>
-                        <p>Resize images to specific dimensions while maintaining quality.</p>
-                        <button class="tool-button" onclick="openTool('image-resizer')">Use Tool</button>
-                        <span class="badge badge-popular">Popular</span>
-                    </div>
-                    
-                    <!-- BMI Calculator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-bounce-subtle">⚖️</div>
-                        <h2>BMI Calculator</h2>
-                        <p>Calculate your Body Mass Index to assess your weight category.</p>
-                        <button class="tool-button" onclick="openTool('bmi-calculator')">Use Tool</button>
-                        <span class="badge badge-health">Health</span>
-                    </div>
-                    
-                    <!-- Meta Tag Generator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-pulse-soft">🏷️</div>
-                        <h2>Meta Tag Generator</h2>
-                        <p>Generate SEO-friendly meta tags for your website to improve search visibility.</p>
-                        <button class="tool-button" onclick="openTool('meta-tag-generator')">Use Tool</button>
-                        <span class="badge badge-seo">SEO</span>
-                    </div>
-                    
-                    <!-- YouTube Thumbnail Downloader -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-float">📺</div>
-                        <h2>YouTube Thumbnail</h2>
-                        <p>Download high-quality thumbnails from YouTube videos.</p>
-                        <button class="tool-button" onclick="openTool('youtube-thumbnail-downloader')">Use Tool</button>
-                        <span class="badge badge-social">Social</span>
-                    </div>
+            
+            <nav class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" onclick="showHomePage()">Home</a></li>
+                    <li><a href="#image-tools" class="nav-link" onclick="showCategory('image-tools')">Image Tools</a></li>
+                    <li><a href="#text-tools" class="nav-link" onclick="showCategory('text-tools')">Text Tools</a></li>
+                    <li><a href="#calculators" class="nav-link" onclick="showCategory('calculators')">Calculators</a></li>
+                    <li><a href="#generators" class="nav-link" onclick="showCategory('generators')">Generators</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="search-box">
+                    <i class="fas fa-search" style="color: var(--text-light);"></i>
+                    <input type="text" class="search-input" placeholder="Search tools...">
                 </div>
-            </section>
-
-            <!-- Image Tools -->
-            <section class="category-section">
-                <h2 class="category-title">
-                    <span>🖼️ Image Tools</span>
-                    <span class="tool-counter">4 tools</span>
-                </h2>
-                <div class="tools-grid">
-                    <!-- Image Converter -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-spin-slow">🔄</div>
-                        <h2>Image Converter</h2>
-                        <p>Convert your images between different formats like JPG, PNG, WEBP, and more.</p>
-                        <button class="tool-button" onclick="openTool('image-converter')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Image Compressor -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-pulse-soft">📦</div>
-                        <h2>Image Compressor</h2>
-                        <p>Reduce image file sizes without compromising quality to save storage.</p>
-                        <button class="tool-button" onclick="openTool('image-compressor')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Image Crop -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-shake">✂️</div>
-                        <h2>Image Crop</h2>
-                        <p>Crop your images to the perfect size and aspect ratio for various platforms.</p>
-                        <button class="tool-button" onclick="openTool('image-crop')">Use Tool</button>
-                    </div>
-                    
-                    <!-- WebP to PNG -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-slide">🖼️</div>
-                        <h2>WebP to PNG</h2>
-                        <p>Convert WebP images to PNG format for better compatibility across platforms.</p>
-                        <button class="tool-button" onclick="openTool('webp-to-png')">Use Tool</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Text Tools -->
-            <section class="category-section">
-                <h2 class="category-title">
-                    <span>📝 Text Tools</span>
-                    <span class="tool-counter">4 tools</span>
-                </h2>
-                <div class="tools-grid">
-                    <!-- Word Counter -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-typewriter">📝</div>
-                        <h2>Word Counter</h2>
-                        <p>Count words, characters, sentences, and paragraphs in your text.</p>
-                        <button class="tool-button" onclick="openTool('word-counter')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Character Counter -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-bounce-subtle">🔢</div>
-                        <h2>Character Counter</h2>
-                        <p>Count characters with and without spaces for social media and content creation.</p>
-                        <button class="tool-button" onclick="openTool('character-counter')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Case Converter -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-float">🔄</div>
-                        <h2>Case Converter</h2>
-                        <p>Convert text between uppercase, lowercase, title case, and more.</p>
-                        <button class="tool-button" onclick="openTool('case-converter')">Use Tool</button>
-                    </div>
-                    
-                    <!-- URL Encoder/Decoder -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-slide">🔗</div>
-                        <h2>URL Encoder/Decoder</h2>
-                        <p>Encode and decode URLs for safe transmission and processing.</p>
-                        <button class="tool-button" onclick="openTool('url-encoder-decoder')">Use Tool</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Calculators -->
-            <section class="category-section">
-                <h2 class="category-title">
-                    <span>🧮 Calculators</span>
-                    <span class="tool-counter">4 tools</span>
-                </h2>
-                <div class="tools-grid">
-                    <!-- Age Calculator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-pulse-soft">🎂</div>
-                        <h2>Age Calculator</h2>
-                        <p>Calculate your exact age in years, months, and days based on your birth date.</p>
-                        <button class="tool-button" onclick="openTool('age-calculator')">Use Tool</button>
-                    </div>
-                    
-                    <!-- EMI Calculator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-float">💰</div>
-                        <h2>EMI Calculator</h2>
-                        <p>Calculate your Equated Monthly Installments for loans with different interest rates.</p>
-                        <button class="tool-button" onclick="openTool('emi-calculator')">Use Tool</button>
-                    </div>
-                    
-                    <!-- SIP Calculator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-bounce-subtle">📈</div>
-                        <h2>SIP Calculator</h2>
-                        <p>Plan your investments with our Systematic Investment Plan calculator.</p>
-                        <button class="tool-button" onclick="openTool('sip-calculator')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Scientific Calculator -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-spin-slow">🧮</div>
-                        <h2>Scientific Calculator</h2>
-                        <p>Advanced calculator with scientific functions for complex calculations.</p>
-                        <button class="tool-button" onclick="openTool('scientific-calculator')">Use Tool</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Media Tools -->
-            <section class="category-section">
-                <h2 class="category-title">
-                    <span>🎵 Media Tools</span>
-                    <span class="tool-counter">2 tools</span>
-                </h2>
-                <div class="tools-grid">
-                    <!-- Video Converter -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-slide">🎬</div>
-                        <h2>Video Converter</h2>
-                        <p>Convert videos between different formats like MP4, AVI, MOV, and more.</p>
-                        <button class="tool-button" onclick="openTool('video-converter')">Use Tool</button>
-                    </div>
-                    
-                    <!-- Audio Trim -->
-                    <div class="tool-card">
-                        <div class="tool-emoji animate-shake">🎵</div>
-                        <h2>Audio Trim</h2>
-                        <p>Trim your audio files to remove unwanted parts or create shorter clips.</p>
-                        <button class="tool-button" onclick="openTool('audio-trim')">Use Tool</button>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
+    </header>
 
-        <!-- Tool Pages -->
-        <div id="tool-pages">
-            <!-- Invoice Generator Tool -->
-            <div id="invoice-generator" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>Invoice Generator</h2>
-                    <p>Create professional invoices in seconds</p>
+    <main id="main-content">
+        <!-- Home Page with Tool Categories -->
+        <section id="home-page" class="tool-page active">
+            <div class="tool-header">
+                <h1>Professional Online Tools</h1>
+                <p>Streamline your workflow with our comprehensive suite of professional tools</p>
+            </div>
+
+            <div class="tool-categories">
+                <div class="category-card active" data-category="image" onclick="showCategory('image-tools')">
+                    <span class="category-icon">🖼️</span>
+                    <div class="category-title">Image Tools</div>
+                    <div class="category-count">5 Professional Tools</div>
+                    <div class="category-description">Convert, compress, and optimize images with advanced processing capabilities</div>
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">From (Your Business)</label>
-                        <input type="text" class="form-input" id="from-name" placeholder="Your Company Name" value="NextGenTool Inc.">
-                        <input type="text" class="form-input" id="from-address" placeholder="Your Address" value="123 Business Ave, City, State 12345" style="margin-top: 0.5rem;">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">To (Client)</label>
-                        <input type="text" class="form-input" id="to-name" placeholder="Client Name" value="ABC Client Corporation">
-                        <input type="text" class="form-input" id="to-address" placeholder="Client Address" value="456 Client St, City, State 67890" style="margin-top: 0.5rem;">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Invoice Details</label>
-                        <input type="text" class="form-input" id="invoice-number" placeholder="Invoice #" value="INV-2024-001">
-                        <input type="date" class="form-input" id="invoice-date" value="2024-01-15" style="margin-top: 0.5rem;">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Items</label>
-                        <div id="invoice-items">
-                            <div class="invoice-item">
-                                <input type="text" class="form-input item-desc" placeholder="Description" value="Web Development Services" style="width: 40%; display: inline-block;">
-                                <input type="number" class="form-input item-qty" placeholder="Qty" value="10" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
-                                <input type="number" class="form-input item-price" placeholder="Price" value="150" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
-                                <input type="text" class="form-input item-amount" placeholder="Amount" value="1500.00" style="width: 20%; display: inline-block;" readonly>
-                            </div>
-                            <div class="invoice-item">
-                                <input type="text" class="form-input item-desc" placeholder="Description" value="UI/UX Design" style="width: 40%; display: inline-block;">
-                                <input type="number" class="form-input item-qty" placeholder="Qty" value="5" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
-                                <input type="number" class="form-input item-price" placeholder="Price" value="200" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
-                                <input type="text" class="form-input item-amount" placeholder="Amount" value="1000.00" style="width: 20%; display: inline-block;" readonly>
-                            </div>
-                        </div>
-                        <button class="btn btn-secondary" onclick="addInvoiceItem()" style="margin-top: 0.5rem;">Add Item</button>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="generateInvoice()">Generate Invoice</button>
-                        <button class="btn btn-success" onclick="downloadInvoice()">Download PDF</button>
-                    </div>
-                    
-                    <div class="result-box" id="invoice-preview">
-                        <p>Your invoice will appear here</p>
-                    </div>
+                
+                <div class="category-card" data-category="text" onclick="showCategory('text-tools')">
+                    <span class="category-icon">📝</span>
+                    <div class="category-title">Text Tools</div>
+                    <div class="category-count">5 Advanced Tools</div>
+                    <div class="category-description">Analyze, convert, and manipulate text with precision and efficiency</div>
+                </div>
+                
+                <div class="category-card" data-category="calculators" onclick="showCategory('calculators')">
+                    <span class="category-icon">🧮</span>
+                    <div class="category-title">Calculators</div>
+                    <div class="category-count">5 Specialized Calculators</div>
+                    <div class="category-description">Perform calculations for finance, health, and everyday needs</div>
+                </div>
+                
+                <div class="category-card" data-category="generators" onclick="showCategory('generators')">
+                    <span class="category-icon">⚡</span>
+                    <div class="category-title">Generators</div>
+                    <div class="category-count">4 Creative Tools</div>
+                    <div class="category-description">Generate passwords, QR codes, and more with custom options</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Tools Section -->
+        <section id="image-tools" class="tool-page">
+            <div class="tool-header">
+                <h1>Image Tools</h1>
+                <p>Professional image processing and optimization tools</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showTool('image-converter')">
+                    <span class="tool-icon">🔄</span>
+                    <h3>Image Converter</h3>
+                    <p>Convert between JPG, PNG, WEBP, and GIF formats with quality preservation</p>
+                    <span class="tool-badge">Format</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('image-compressor')">
+                    <span class="tool-icon">📦</span>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce file size while maintaining visual quality with adjustable compression</p>
+                    <span class="tool-badge">Optimization</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('image-cropper')">
+                    <span class="tool-icon">✂️</span>
+                    <h3>Image Cropper</h3>
+                    <p>Crop images with precision using aspect ratio presets or custom dimensions</p>
+                    <span class="tool-badge">Editing</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('webp-converter')">
+                    <span class="tool-icon">🖼️</span>
+                    <h3>WebP Converter</h3>
+                    <p>Convert WebP images to PNG or JPG format with transparency support</p>
+                    <span class="tool-badge">Conversion</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('image-resizer')">
+                    <span class="tool-icon">📏</span>
+                    <h3>Image Resizer</h3>
+                    <p>Resize images to specific dimensions while maintaining aspect ratio</p>
+                    <span class="tool-badge">Resizing</span>
                 </div>
             </div>
 
-            <!-- QR Code Generator Tool -->
-            <div id="qr-code-generator" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>QR Code Generator</h2>
-                    <p>Create custom QR codes for any purpose</p>
+            <!-- Image Converter Tool -->
+            <div id="image-converter" class="tool-content">
+                <button class="back-button" onclick="showCategory('image-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Image Tools
+                </button>
+                
+                <h2>Image Converter</h2>
+                <p>Convert your images between different formats while preserving quality</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload Image</label>
+                    <input type="file" class="form-input" id="converter-file" accept="image/*" onchange="handleImageUpload(this, 'converter')">
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">Enter text or URL</label>
-                        <input type="text" class="form-input" id="qr-content" placeholder="https://example.com or any text" value="https://nextgentool.com">
+
+                <div class="form-group">
+                    <label class="form-label">Convert To Format</label>
+                    <select class="form-select" id="target-format">
+                        <option value="jpg">JPEG (JPG)</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WEBP</option>
+                    </select>
+                </div>
+
+                <div class="image-preview-container" id="converter-preview" style="display: none;">
+                    <div class="image-preview">
+                        <div class="preview-label">Original Image</div>
+                        <img id="original-image" src="" alt="Original">
+                        <div class="image-info" id="original-info"></div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">QR Code Size</label>
-                        <select class="form-select" id="qr-size">
-                            <option value="128">Small (128x128)</option>
-                            <option value="256" selected>Medium (256x256)</option>
-                            <option value="512">Large (512x512)</option>
-                        </select>
+                    <div class="image-preview">
+                        <div class="preview-label">Converted Image</div>
+                        <img id="converted-image" src="" alt="Converted">
+                        <div class="image-info" id="converted-info"></div>
                     </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="generateQRCode()">Generate QR Code</button>
-                        <button class="btn btn-success" onclick="downloadQRCode()">Download QR Code</button>
-                    </div>
-                    
-                    <div class="preview-box" id="qr-preview">
-                        <p>QR Code will appear here</p>
-                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="convertImage()" id="convert-btn" disabled>
+                        <i class="fas fa-sync-alt"></i> Convert Image
+                    </button>
+                    <button class="btn btn-success" onclick="downloadConvertedImage()" id="download-btn" disabled>
+                        <i class="fas fa-download"></i> Download Converted
+                    </button>
                 </div>
             </div>
 
-            <!-- Password Generator Tool -->
-            <div id="password-generator" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>Password Generator</h2>
-                    <p>Create strong, secure passwords</p>
+            <!-- Image Compressor Tool -->
+            <div id="image-compressor" class="tool-content">
+                <button class="back-button" onclick="showCategory('image-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Image Tools
+                </button>
+                
+                <h2>Image Compressor</h2>
+                <p>Reduce image file size while maintaining quality</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload Image</label>
+                    <input type="file" class="form-input" id="compressor-file" accept="image/*" onchange="handleImageUpload(this, 'compressor')">
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">Password Length</label>
-                        <input type="range" class="form-input" id="password-length" min="8" max="32" value="16">
-                        <span id="length-value">16 characters</span>
+
+                <div class="form-group">
+                    <label class="form-label">Compression Quality: <span id="quality-value">80%</span></label>
+                    <input type="range" class="form-input" id="compression-quality" min="10" max="100" value="80" oninput="updateQualityValue()">
+                </div>
+
+                <div class="image-preview-container" id="compressor-preview" style="display: none;">
+                    <div class="image-preview">
+                        <div class="preview-label">Original Image</div>
+                        <img id="compressor-original" src="" alt="Original">
+                        <div class="image-info" id="compressor-original-info"></div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Include:</label>
-                        <div>
-                            <input type="checkbox" id="uppercase" checked> Uppercase Letters (A-Z)
-                        </div>
-                        <div>
-                            <input type="checkbox" id="lowercase" checked> Lowercase Letters (a-z)
-                        </div>
-                        <div>
-                            <input type="checkbox" id="numbers" checked> Numbers (0-9)
-                        </div>
-                        <div>
-                            <input type="checkbox" id="symbols"> Symbols (!@#$%^&*)
-                        </div>
+                    <div class="image-preview">
+                        <div class="preview-label">Compressed Image</div>
+                        <img id="compressed-image" src="" alt="Compressed">
+                        <div class="image-info" id="compressed-info"></div>
                     </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="generatePassword()">Generate Password</button>
-                        <button class="btn btn-success" onclick="copyPassword()">Copy to Clipboard</button>
-                    </div>
-                    
-                    <div class="result-box" id="password-result">
-                        <p>Your generated password will appear here</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Password Strength</label>
-                        <div id="password-strength" style="height: 10px; background: #e5e7eb; border-radius: 5px; margin-top: 0.5rem;">
-                            <div id="strength-bar" style="height: 100%; width: 0%; border-radius: 5px; transition: width 0.3s;"></div>
-                        </div>
-                        <p id="strength-text" style="margin-top: 0.5rem; font-size: 0.9rem;">Very Weak</p>
-                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="compressImage()" id="compress-btn" disabled>
+                        <i class="fas fa-compress-alt"></i> Compress Image
+                    </button>
+                    <button class="btn btn-success" onclick="downloadCompressedImage()" id="download-compressed-btn" disabled>
+                        <i class="fas fa-download"></i> Download Compressed
+                    </button>
                 </div>
             </div>
 
-            <!-- BMI Calculator Tool -->
-            <div id="bmi-calculator" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>BMI Calculator</h2>
-                    <p>Calculate your Body Mass Index</p>
+            <!-- Image Cropper Tool -->
+            <div id="image-cropper" class="tool-content">
+                <button class="back-button" onclick="showCategory('image-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Image Tools
+                </button>
+                
+                <h2>Image Cropper</h2>
+                <p>Crop images with precision and control</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload Image</label>
+                    <input type="file" class="form-input" id="crop-file" accept="image/*" onchange="handleImageUpload(this, 'cropper')">
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">Weight (kg)</label>
-                        <input type="number" class="form-input" id="weight" placeholder="Enter weight in kg" value="70">
+
+                <div class="form-group">
+                    <label class="form-label">Crop Dimensions</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label>Width (px)</label>
+                            <input type="number" class="form-input" id="crop-width" placeholder="Auto" min="1">
+                        </div>
+                        <div>
+                            <label>Height (px)</label>
+                            <input type="number" class="form-input" id="crop-height" placeholder="Auto" min="1">
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Height (cm)</label>
-                        <input type="number" class="form-input" id="height" placeholder="Enter height in cm" value="170">
+                </div>
+
+                <div class="image-preview-container" id="crop-preview" style="display: none;">
+                    <div class="image-preview">
+                        <div class="preview-label">Original Image</div>
+                        <img id="crop-original" src="" alt="Original">
+                        <div class="image-info" id="crop-original-info"></div>
                     </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="calculateBMI()">Calculate BMI</button>
+                    <div class="image-preview">
+                        <div class="preview-label">Cropped Image</div>
+                        <canvas id="cropped-canvas" style="max-width: 100%; border: 1px dashed #cbd5e1; border-radius: 6px;"></canvas>
+                        <div class="image-info" id="cropped-info"></div>
                     </div>
-                    
-                    <div class="result-box" id="bmi-result">
-                        <p>Your BMI result will appear here</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="cropImage()" id="crop-btn" disabled>
+                        <i class="fas fa-crop-alt"></i> Crop Image
+                    </button>
+                    <button class="btn btn-success" onclick="downloadCroppedImage()" id="download-crop-btn" disabled>
+                        <i class="fas fa-download"></i> Download Cropped
+                    </button>
+                </div>
+            </div>
+
+            <!-- WebP Converter Tool -->
+            <div id="webp-converter" class="tool-content">
+                <button class="back-button" onclick="showCategory('image-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Image Tools
+                </button>
+                
+                <h2>WebP Converter</h2>
+                <p>Convert WebP images to other formats</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload WebP Image</label>
+                    <input type="file" class="form-input" id="webp-file" accept=".webp" onchange="handleWebpUpload(this)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Convert To Format</label>
+                    <select class="form-select" id="webp-target-format">
+                        <option value="png">PNG</option>
+                        <option value="jpg">JPEG (JPG)</option>
+                    </select>
+                </div>
+
+                <div class="image-preview-container" id="webp-preview" style="display: none;">
+                    <div class="image-preview">
+                        <div class="preview-label">WebP Image</div>
+                        <img id="webp-original" src="" alt="Original">
+                        <div class="image-info" id="webp-original-info"></div>
                     </div>
-                    
-                    <div class="form-group">
-                        <h3>BMI Categories:</h3>
-                        <ul>
-                            <li>Underweight: &lt; 18.5</li>
-                            <li>Normal weight: 18.5 - 24.9</li>
-                            <li>Overweight: 25 - 29.9</li>
-                            <li>Obesity: 30 or greater</li>
-                        </ul>
+                    <div class="image-preview">
+                        <div class="preview-label">Converted Image</div>
+                        <img id="webp-converted" src="" alt="Converted">
+                        <div class="image-info" id="webp-converted-info"></div>
                     </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="convertWebp()" id="webp-convert-btn" disabled>
+                        <i class="fas fa-sync-alt"></i> Convert WebP
+                    </button>
+                    <button class="btn btn-success" onclick="downloadWebpConverted()" id="webp-download-btn" disabled>
+                        <i class="fas fa-download"></i> Download Converted
+                    </button>
+                </div>
+            </div>
+
+            <!-- Image Resizer Tool -->
+            <div id="image-resizer" class="tool-content">
+                <button class="back-button" onclick="showCategory('image-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Image Tools
+                </button>
+                
+                <h2>Image Resizer</h2>
+                <p>Resize images to specific dimensions</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload Image</label>
+                    <input type="file" class="form-input" id="resize-file" accept="image/*" onchange="handleImageUpload(this, 'resizer')">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Resize Dimensions</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label>Width (px)</label>
+                            <input type="number" class="form-input" id="resize-width" placeholder="Auto" min="1">
+                        </div>
+                        <div>
+                            <label>Height (px)</label>
+                            <input type="number" class="form-input" id="resize-height" placeholder="Auto" min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Maintain Aspect Ratio</label>
+                    <input type="checkbox" id="maintain-aspect" checked>
+                </div>
+
+                <div class="image-preview-container" id="resize-preview" style="display: none;">
+                    <div class="image-preview">
+                        <div class="preview-label">Original Image</div>
+                        <img id="resize-original" src="" alt="Original">
+                        <div class="image-info" id="resize-original-info"></div>
+                    </div>
+                    <div class="image-preview">
+                        <div class="preview-label">Resized Image</div>
+                        <canvas id="resized-canvas" style="max-width: 100%; border: 1px dashed #cbd5e1; border-radius: 6px;"></canvas>
+                        <div class="image-info" id="resized-info"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="resizeImage()" id="resize-btn" disabled>
+                        <i class="fas fa-expand-alt"></i> Resize Image
+                    </button>
+                    <button class="btn btn-success" onclick="downloadResizedImage()" id="download-resize-btn" disabled>
+                        <i class="fas fa-download"></i> Download Resized
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Text Tools Section -->
+        <section id="text-tools" class="tool-page">
+            <div class="tool-header">
+                <h1>Text Tools</h1>
+                <p>Advanced text processing and analysis tools</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showTool('word-counter')">
+                    <span class="tool-icon">📊</span>
+                    <h3>Word Counter</h3>
+                    <p>Count words, characters, sentences, and analyze reading time</p>
+                    <span class="tool-badge">Analysis</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('case-converter')">
+                    <span class="tool-icon">🔄</span>
+                    <h3>Case Converter</h3>
+                    <p>Convert text between uppercase, lowercase, title case, and more</p>
+                    <span class="tool-badge">Formatting</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('text-extractor')">
+                    <span class="tool-icon">📄</span>
+                    <h3>Text Extractor</h3>
+                    <p>Extract text from documents, images, or web pages with precision</p>
+                    <span class="tool-badge">Extraction</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('text-diff')">
+                    <span class="tool-icon">🔍</span>
+                    <h3>Text Diff Checker</h3>
+                    <p>Compare two texts and find differences between them</p>
+                    <span class="tool-badge">Comparison</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('text-encoder')">
+                    <span class="tool-icon">🔒</span>
+                    <h3>Text Encoder/Decoder</h3>
+                    <p>Encode and decode text using Base64, URL encoding, and more</p>
+                    <span class="tool-badge">Encoding</span>
                 </div>
             </div>
 
             <!-- Word Counter Tool -->
-            <div id="word-counter" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>Word Counter</h2>
-                    <p>Count words, characters, and more</p>
+            <div id="word-counter" class="tool-content">
+                <button class="back-button" onclick="showCategory('text-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Text Tools
+                </button>
+                
+                <h2>Word Counter</h2>
+                <p>Analyze your text and get detailed statistics</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Enter Text</label>
+                    <textarea class="form-textarea" id="word-counter-text" placeholder="Paste or type your text here..." oninput="countWords()"></textarea>
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">Enter your text</label>
-                        <textarea class="form-textarea" id="word-text" placeholder="Type or paste your text here...">This is a sample text to demonstrate the word counter tool. You can replace this with your own text to see how many words and characters it contains. The tool provides detailed statistics including word count, character count, sentences, and paragraphs.</textarea>
+
+                <div class="calculation-results" id="word-counter-results">
+                    <div class="result-item">
+                        <div class="result-value" id="word-count">0</div>
+                        <div class="result-label">Words</div>
                     </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="countWords()">Count Words</button>
-                        <button class="btn btn-secondary" onclick="clearText()">Clear Text</button>
+                    <div class="result-item">
+                        <div class="result-value" id="character-count">0</div>
+                        <div class="result-label">Characters</div>
                     </div>
-                    
-                    <div class="result-box" id="word-stats">
-                        <p>Word count statistics will appear here</p>
+                    <div class="result-item">
+                        <div class="result-value" id="sentence-count">0</div>
+                        <div class="result-label">Sentences</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="paragraph-count">0</div>
+                        <div class="result-label">Paragraphs</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="reading-time">0</div>
+                        <div class="result-label">Reading Time (min)</div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="copyText('word-counter-text')">
+                        <i class="fas fa-copy"></i> Copy Text
+                    </button>
+                    <button class="btn btn-success" onclick="clearText('word-counter-text')">
+                        <i class="fas fa-broom"></i> Clear Text
+                    </button>
+                </div>
+            </div>
+
+            <!-- Case Converter Tool -->
+            <div id="case-converter" class="tool-content">
+                <button class="back-button" onclick="showCategory('text-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Text Tools
+                </button>
+                
+                <h2>Case Converter</h2>
+                <p>Convert text between different case styles</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Enter Text</label>
+                    <textarea class="form-textarea" id="case-converter-text" placeholder="Enter text to convert..."></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="convertCase('uppercase')">
+                        <i class="fas fa-text-height"></i> UPPERCASE
+                    </button>
+                    <button class="btn btn-primary" onclick="convertCase('lowercase')">
+                        <i class="fas fa-text-height"></i> lowercase
+                    </button>
+                    <button class="btn btn-primary" onclick="convertCase('titlecase')">
+                        <i class="fas fa-text-height"></i> Title Case
+                    </button>
+                    <button class="btn btn-primary" onclick="convertCase('sentencecase')">
+                        <i class="fas fa-text-height"></i> Sentence case
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Converted Text</h3>
+                    <div id="converted-text-output" style="min-height: 100px; padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem;">
+                        Your converted text will appear here...
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="copyConvertedText()">
+                        <i class="fas fa-copy"></i> Copy Converted Text
+                    </button>
+                </div>
+            </div>
+
+            <!-- Text Extractor Tool -->
+            <div id="text-extractor" class="tool-content">
+                <button class="back-button" onclick="showCategory('text-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Text Tools
+                </button>
+                
+                <h2>Text Extractor</h2>
+                <p>Extract text from various sources</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Source Type</label>
+                    <select class="form-select" id="extractor-source">
+                        <option value="url">From URL</option>
+                        <option value="file">From File</option>
+                        <option value="input">Direct Input</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="url-input-group">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" class="form-input" id="extractor-url" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group" id="file-input-group" style="display: none;">
+                    <label class="form-label">Upload File</label>
+                    <input type="file" class="form-input" id="extractor-file" accept=".txt,.pdf,.doc,.docx">
+                </div>
+
+                <div class="form-group" id="text-input-group" style="display: none;">
+                    <label class="form-label">Enter Text</label>
+                    <textarea class="form-textarea" id="extractor-text" placeholder="Paste text here..."></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="extractText()">
+                        <i class="fas fa-extract"></i> Extract Text
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Extracted Text</h3>
+                    <div id="extracted-text-output" style="min-height: 200px; padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem;">
+                        Extracted text will appear here...
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="copyExtractedText()">
+                        <i class="fas fa-copy"></i> Copy Extracted Text
+                    </button>
+                </div>
+            </div>
+
+            <!-- Text Diff Checker Tool -->
+            <div id="text-diff" class="tool-content">
+                <button class="back-button" onclick="showCategory('text-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Text Tools
+                </button>
+                
+                <h2>Text Diff Checker</h2>
+                <p>Compare two texts and find differences</p>
+                
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Original Text</label>
+                            <textarea class="form-textarea" id="original-diff-text" placeholder="Enter original text..."></textarea>
+                        </div>
+                        <div>
+                            <label class="form-label">Modified Text</label>
+                            <textarea class="form-textarea" id="modified-diff-text" placeholder="Enter modified text..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="compareTexts()">
+                        <i class="fas fa-code-compare"></i> Compare Texts
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Comparison Results</h3>
+                    <div id="diff-results" style="min-height: 200px; padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem;">
+                        Differences will be highlighted here...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Encoder/Decoder Tool -->
+            <div id="text-encoder" class="tool-content">
+                <button class="back-button" onclick="showCategory('text-tools')">
+                    <i class="fas fa-arrow-left"></i> Back to Text Tools
+                </button>
+                
+                <h2>Text Encoder/Decoder</h2>
+                <p>Encode and decode text using various algorithms</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Input Text</label>
+                    <textarea class="form-textarea" id="encoder-input" placeholder="Enter text to encode or decode..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Encoding Type</label>
+                    <select class="form-select" id="encoding-type">
+                        <option value="base64">Base64</option>
+                        <option value="url">URL Encoding</option>
+                        <option value="html">HTML Entities</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="encodeText()">
+                        <i class="fas fa-lock"></i> Encode
+                    </button>
+                    <button class="btn btn-success" onclick="decodeText()">
+                        <i class="fas fa-lock-open"></i> Decode
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Result</h3>
+                    <div id="encoder-output" style="min-height: 100px; padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem; word-break: break-all;">
+                        Encoded/decoded text will appear here...
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="copyEncoderOutput()">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators Section -->
+        <section id="calculators" class="tool-page">
+            <div class="tool-header">
+                <h1>Calculators</h1>
+                <p>Specialized calculators for various needs</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showTool('bmi-calculator')">
+                    <span class="tool-icon">⚖️</span>
+                    <h3>BMI Calculator</h3>
+                    <p>Calculate your Body Mass Index and understand your health status</p>
+                    <span class="tool-badge">Health</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('loan-calculator')">
+                    <span class="tool-icon">💰</span>
+                    <h3>Loan Calculator</h3>
+                    <p>Calculate loan payments, interest, and amortization schedules</p>
+                    <span class="tool-badge">Finance</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('percentage-calculator')">
+                    <span class="tool-icon">%</span>
+                    <h3>Percentage Calculator</h3>
+                    <p>Calculate percentages, increases, decreases, and more</p>
+                    <span class="tool-badge">Math</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('age-calculator')">
+                    <span class="tool-icon">🎂</span>
+                    <h3>Age Calculator</h3>
+                    <p>Calculate exact age in years, months, and days</p>
+                    <span class="tool-badge">Time</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('unit-converter')">
+                    <span class="tool-icon">📐</span>
+                    <h3>Unit Converter</h3>
+                    <p>Convert between different units of measurement</p>
+                    <span class="tool-badge">Conversion</span>
+                </div>
+            </div>
+
+            <!-- BMI Calculator Tool -->
+            <div id="bmi-calculator" class="tool-content">
+                <button class="back-button" onclick="showCategory('calculators')">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </button>
+                
+                <h2>BMI Calculator</h2>
+                <p>Calculate your Body Mass Index</p>
+                
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Weight (kg)</label>
+                            <input type="number" class="form-input" id="weight-input" placeholder="Enter weight">
+                        </div>
+                        <div>
+                            <label class="form-label">Height (cm)</label>
+                            <input type="number" class="form-input" id="height-input" placeholder="Enter height">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="calculateBMI()">
+                        <i class="fas fa-calculator"></i> Calculate BMI
+                    </button>
+                </div>
+
+                <div class="result-box" id="bmi-result" style="display: none;">
+                    <h3>BMI Result</h3>
+                    <div class="calculation-results">
+                        <div class="result-item">
+                            <div class="result-value" id="bmi-value">0</div>
+                            <div class="result-label">BMI</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="bmi-category">-</div>
+                            <div class="result-label">Category</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Calculator Tool -->
+            <div id="loan-calculator" class="tool-content">
+                <button class="back-button" onclick="showCategory('calculators')">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </button>
+                
+                <h2>Loan Calculator</h2>
+                <p>Calculate your loan payments</p>
+                
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Loan Amount ($)</label>
+                            <input type="number" class="form-input" id="loan-amount" placeholder="Loan amount">
+                        </div>
+                        <div>
+                            <label class="form-label">Interest Rate (%)</label>
+                            <input type="number" class="form-input" id="interest-rate" placeholder="Annual interest rate">
+                        </div>
+                        <div>
+                            <label class="form-label">Loan Term (years)</label>
+                            <input type="number" class="form-input" id="loan-term" placeholder="Loan term in years">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="calculateLoan()">
+                        <i class="fas fa-calculator"></i> Calculate Loan
+                    </button>
+                </div>
+
+                <div class="result-box" id="loan-result" style="display: none;">
+                    <h3>Loan Calculation Results</h3>
+                    <div class="calculation-results">
+                        <div class="result-item">
+                            <div class="result-value" id="monthly-payment">$0</div>
+                            <div class="result-label">Monthly Payment</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="total-payment">$0</div>
+                            <div class="result-label">Total Payment</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="total-interest">$0</div>
+                            <div class="result-label">Total Interest</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentage Calculator Tool -->
+            <div id="percentage-calculator" class="tool-content">
+                <button class="back-button" onclick="showCategory('calculators')">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </button>
+                
+                <h2>Percentage Calculator</h2>
+                <p>Calculate percentages and changes</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Calculation Type</label>
+                    <select class="form-select" id="percentage-type" onchange="togglePercentageInputs()">
+                        <option value="basic">What is X% of Y?</option>
+                        <option value="increase">X increased by Y%</option>
+                        <option value="decrease">X decreased by Y%</option>
+                        <option value="percentage">X is what % of Y?</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label" id="percentage-input1-label">Value X</label>
+                            <input type="number" class="form-input" id="percentage-input1" placeholder="Enter value">
+                        </div>
+                        <div>
+                            <label class="form-label" id="percentage-input2-label">Value Y</label>
+                            <input type="number" class="form-input" id="percentage-input2" placeholder="Enter value">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="calculatePercentage()">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                </div>
+
+                <div class="result-box" id="percentage-result" style="display: none;">
+                    <h3>Percentage Result</h3>
+                    <div id="percentage-result-text" style="padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem;">
+                        Result will appear here...
                     </div>
                 </div>
             </div>
 
             <!-- Age Calculator Tool -->
-            <div id="age-calculator" class="tool-page">
-                <button class="back-button" onclick="goBack()">← Back to Tools</button>
-                <div class="tool-header">
-                    <h2>Age Calculator</h2>
-                    <p>Calculate your exact age</p>
+            <div id="age-calculator" class="tool-content">
+                <button class="back-button" onclick="showCategory('calculators')">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </button>
+                
+                <h2>Age Calculator</h2>
+                <p>Calculate your exact age</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-input" id="birth-date">
                 </div>
-                <div class="tool-content">
-                    <div class="form-group">
-                        <label class="form-label">Date of Birth</label>
-                        <input type="date" class="form-input" id="birth-date" value="1990-01-01">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Calculate age as of (optional)</label>
-                        <input type="date" class="form-input" id="age-as-of" value="">
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="calculateAge()">Calculate Age</button>
-                    </div>
-                    
-                    <div class="result-box" id="age-result">
-                        <p>Your age will be calculated here</p>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="calculateAge()">
+                        <i class="fas fa-calculator"></i> Calculate Age
+                    </button>
+                </div>
+
+                <div class="result-box" id="age-result" style="display: none;">
+                    <h3>Age Calculation</h3>
+                    <div class="calculation-results">
+                        <div class="result-item">
+                            <div class="result-value" id="years-age">0</div>
+                            <div class="result-label">Years</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="months-age">0</div>
+                            <div class="result-label">Months</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="days-age">0</div>
+                            <div class="result-label">Days</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Additional tool pages would follow the same pattern -->
-        </div>
+            <!-- Unit Converter Tool -->
+            <div id="unit-converter" class="tool-content">
+                <button class="back-button" onclick="showCategory('calculators')">
+                    <i class="fas fa-arrow-left"></i> Back to Calculators
+                </button>
+                
+                <h2>Unit Converter</h2>
+                <p>Convert between different units of measurement</p>
+                
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Value</label>
+                            <input type="number" class="form-input" id="unit-value" placeholder="Enter value">
+                        </div>
+                        <div>
+                            <label class="form-label">From Unit</label>
+                            <select class="form-select" id="from-unit">
+                                <option value="meter">Meter</option>
+                                <option value="kilometer">Kilometer</option>
+                                <option value="centimeter">Centimeter</option>
+                                <option value="millimeter">Millimeter</option>
+                                <option value="mile">Mile</option>
+                                <option value="yard">Yard</option>
+                                <option value="foot">Foot</option>
+                                <option value="inch">Inch</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">To Unit</label>
+                            <select class="form-select" id="to-unit">
+                                <option value="meter">Meter</option>
+                                <option value="kilometer">Kilometer</option>
+                                <option value="centimeter">Centimeter</option>
+                                <option value="millimeter">Millimeter</option>
+                                <option value="mile">Mile</option>
+                                <option value="yard">Yard</option>
+                                <option value="foot">Foot</option>
+                                <option value="inch">Inch</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="convertUnits()">
+                        <i class="fas fa-exchange-alt"></i> Convert Units
+                    </button>
+                </div>
+
+                <div class="result-box" id="unit-result" style="display: none;">
+                    <h3>Conversion Result</h3>
+                    <div id="unit-result-text" style="padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem; font-size: 1.2rem; font-weight: 600;">
+                        Result will appear here...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generators Section -->
+        <section id="generators" class="tool-page">
+            <div class="tool-header">
+                <h1>Generators</h1>
+                <p>Creative tools for generating various content</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showTool('password-generator')">
+                    <span class="tool-icon">🔐</span>
+                    <h3>Password Generator</h3>
+                    <p>Generate secure, random passwords with customizable options</p>
+                    <span class="tool-badge">Security</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('qr-generator')">
+                    <span class="tool-icon">📱</span>
+                    <h3>QR Code Generator</h3>
+                    <p>Create QR codes for URLs, text, contact information, and more</p>
+                    <span class="tool-badge">Sharing</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('color-generator')">
+                    <span class="tool-icon">🎨</span>
+                    <h3>Color Palette Generator</h3>
+                    <p>Generate beautiful color palettes for your designs</p>
+                    <span class="tool-badge">Design</span>
+                </div>
+                
+                <div class="tool-card" onclick="showTool('lorem-generator')">
+                    <span class="tool-icon">📝</span>
+                    <h3>Lorem Ipsum Generator</h3>
+                    <p>Generate placeholder text for your designs and mockups</p>
+                    <span class="tool-badge">Content</span>
+                </div>
+            </div>
+
+            <!-- Password Generator Tool -->
+            <div id="password-generator" class="tool-content">
+                <button class="back-button" onclick="showCategory('generators')">
+                    <i class="fas fa-arrow-left"></i> Back to Generators
+                </button>
+                
+                <h2>Password Generator</h2>
+                <p>Create strong, secure passwords</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Password Length: <span id="length-value">12</span></label>
+                    <input type="range" class="form-input" id="password-length" min="8" max="32" value="12" oninput="updateLengthValue()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Include:</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
+                        <div>
+                            <input type="checkbox" id="include-uppercase" checked>
+                            <label for="include-uppercase">Uppercase Letters (A-Z)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="include-lowercase" checked>
+                            <label for="include-lowercase">Lowercase Letters (a-z)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="include-numbers" checked>
+                            <label for="include-numbers">Numbers (0-9)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="include-symbols">
+                            <label for="include-symbols">Symbols (!@#$%^&*)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generatePassword()">
+                        <i class="fas fa-key"></i> Generate Password
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Generated Password</h3>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                        <input type="text" class="form-input" id="generated-password" readonly style="flex: 1;">
+                        <button class="btn btn-success" onclick="copyPassword()">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="password-strength-bar"></div>
+                    </div>
+                    <div id="password-strength-text" style="text-align: center; font-size: 0.9rem; margin-top: 0.5rem;"></div>
+                </div>
+            </div>
+
+            <!-- QR Code Generator Tool -->
+            <div id="qr-generator" class="tool-content">
+                <button class="back-button" onclick="showCategory('generators')">
+                    <i class="fas fa-arrow-left"></i> Back to Generators
+                </button>
+                
+                <h2>QR Code Generator</h2>
+                <p>Create QR codes for various types of content</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Content Type</label>
+                    <select class="form-select" id="qr-type" onchange="toggleQRInputs()">
+                        <option value="url">URL</option>
+                        <option value="text">Text</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                        <option value="wifi">WiFi</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="qr-url-input">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" class="form-input" id="qr-url" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group" id="qr-text-input" style="display: none;">
+                    <label class="form-label">Text Content</label>
+                    <textarea class="form-textarea" id="qr-text" placeholder="Enter text for QR code..."></textarea>
+                </div>
+
+                <div class="form-group" id="qr-email-input" style="display: none;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" id="qr-email" placeholder="email@example.com">
+                        </div>
+                        <div>
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" id="qr-email-subject" placeholder="Email subject">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="qr-phone-input" style="display: none;">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" id="qr-phone" placeholder="+1234567890">
+                </div>
+
+                <div class="form-group" id="qr-wifi-input" style="display: none;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label class="form-label">Network Name (SSID)</label>
+                            <input type="text" class="form-input" id="qr-wifi-ssid" placeholder="MyWiFi">
+                        </div>
+                        <div>
+                            <label class="form-label">Password</label>
+                            <input type="text" class="form-input" id="qr-wifi-password" placeholder="WiFi password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateQRCode()">
+                        <i class="fas fa-qrcode"></i> Generate QR Code
+                    </button>
+                </div>
+
+                <div class="qr-preview" id="qr-preview" style="display: none;">
+                    <h3>QR Code</h3>
+                    <div id="qrcode"></div>
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="downloadQRCode()" id="download-qr-btn">
+                            <i class="fas fa-download"></i> Download QR Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Palette Generator Tool -->
+            <div id="color-generator" class="tool-content">
+                <button class="back-button" onclick="showCategory('generators')">
+                    <i class="fas fa-arrow-left"></i> Back to Generators
+                </button>
+                
+                <h2>Color Palette Generator</h2>
+                <p>Generate beautiful color palettes for your designs</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Base Color</label>
+                    <input type="color" class="form-input" id="base-color" value="#667eea" style="height: 50px;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Palette Type</label>
+                    <select class="form-select" id="palette-type">
+                        <option value="monochromatic">Monochromatic</option>
+                        <option value="analogous">Analogous</option>
+                        <option value="complementary">Complementary</option>
+                        <option value="triadic">Triadic</option>
+                        <option value="tetradic">Tetradic</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateColorPalette()">
+                        <i class="fas fa-palette"></i> Generate Palette
+                    </button>
+                </div>
+
+                <div class="result-box" id="color-palette-result" style="display: none;">
+                    <h3>Color Palette</h3>
+                    <div id="color-palette" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                        <!-- Color swatches will be generated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lorem Ipsum Generator Tool -->
+            <div id="lorem-generator" class="tool-content">
+                <button class="back-button" onclick="showCategory('generators')">
+                    <i class="fas fa-arrow-left"></i> Back to Generators
+                </button>
+                
+                <h2>Lorem Ipsum Generator</h2>
+                <p>Generate placeholder text for your designs</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Text Type</label>
+                    <select class="form-select" id="lorem-type">
+                        <option value="paragraphs">Paragraphs</option>
+                        <option value="sentences">Sentences</option>
+                        <option value="words">Words</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" class="form-input" id="lorem-amount" min="1" max="50" value="3">
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateLoremIpsum()">
+                        <i class="fas fa-text"></i> Generate Text
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <h3>Generated Text</h3>
+                    <div id="lorem-output" style="padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem; max-height: 400px; overflow-y: auto;">
+                        Generated text will appear here...
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="copyLoremText()">
+                        <i class="fas fa-copy"></i> Copy Text
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>© 2023 NextGenTool. All rights reserved.</p>
-        <p>100+ free tools to simplify your work and daily tasks.</p>
+    <!-- Professional Footer -->
+    <footer class="professional-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>NextGenTool</h3>
+                <p style="color: #94a3b8; line-height: 1.6;">Professional online tools to streamline your workflow and boost productivity.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showHomePage()">Home</a></li>
+                    <li><a href="#image-tools" onclick="showCategory('image-tools')">Image Tools</a></li>
+                    <li><a href="#text-tools" onclick="showCategory('text-tools')">Text Tools</a></li>
+                    <li><a href="#calculators" onclick="showCategory('calculators')">Calculators</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Tools</h3>
+                <ul class="footer-links">
+                    <li><a href="#generators" onclick="showCategory('generators')">Generators</a></li>
+                    <li><a href="#" onclick="showTool('password-generator')">Password Generator</a></li>
+                    <li><a href="#" onclick="showTool('qr-generator')">QR Code Generator</a></li>
+                    <li><a href="#" onclick="showTool('bmi-calculator')">BMI Calculator</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 NextGenTool. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
-        // Tool management system
-        function openTool(toolId) {
-            document.getElementById('landing-page').style.display = 'none';
+        // Global variables to store current tool states
+        let currentImageData = null;
+        let currentConvertedImage = null;
+        let currentCompressedImage = null;
+        let currentCroppedImage = null;
+        let currentResizedImage = null;
+        let currentWebpImage = null;
+
+        // Navigation Functions
+        function showHomePage() {
             document.querySelectorAll('.tool-page').forEach(page => {
-                page.style.display = 'none';
+                page.classList.remove('active');
+            });
+            document.getElementById('home-page').classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('.nav-link[onclick="showHomePage()"]').classList.add('active');
+            
+            // Hide all tool contents
+            document.querySelectorAll('.tool-content').forEach(content => {
+                content.classList.remove('active');
+            });
+        }
+
+        function showCategory(categoryId) {
+            document.querySelectorAll('.tool-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(categoryId).classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.nav-link[onclick="showCategory('${categoryId}')"]`).classList.add('active');
+            
+            // Hide all tool contents
+            document.querySelectorAll('.tool-content').forEach(content => {
+                content.classList.remove('active');
+            });
+        }
+
+        function showTool(toolId) {
+            // Hide all tool contents
+            document.querySelectorAll('.tool-content').forEach(content => {
+                content.classList.remove('active');
             });
             
-            const toolPage = document.getElementById(toolId);
-            if (toolPage) {
-                toolPage.style.display = 'block';
-                history.pushState({ tool: toolId }, '', `#${toolId}`);
-                
-                // Initialize tool if needed
-                if (toolId === 'qr-code-generator') {
-                    generateQRCode();
-                } else if (toolId === 'password-generator') {
-                    updatePasswordLength();
-                    generatePassword();
-                } else if (toolId === 'bmi-calculator') {
-                    calculateBMI();
-                } else if (toolId === 'word-counter') {
-                    countWords();
-                } else if (toolId === 'age-calculator') {
-                    calculateAge();
-                } else if (toolId === 'invoice-generator') {
-                    generateInvoice();
-                }
+            // Show the selected tool
+            document.getElementById(toolId).classList.add('active');
+            
+            // Scroll to the tool
+            document.getElementById(toolId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Image Tools Functions
+        function handleImageUpload(input, toolType) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            // Reset previous state
+            if (toolType === 'converter') {
+                currentConvertedImage = null;
+                document.getElementById('download-btn').disabled = true;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    currentImageData = {
+                        src: e.target.result,
+                        width: img.width,
+                        height: img.height,
+                        file: file,
+                        imageElement: img
+                    };
+                    
+                    // Update preview based on tool type
+                    updateImagePreview(toolType);
+                    
+                    // Enable action button
+                    document.getElementById(`${toolType}-btn`).disabled = false;
+                };
+                img.onerror = function() {
+                    alert('Error: Failed to load the image. Please try another file.');
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = function() {
+                alert('Error: Failed to read the file. Please try another file.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateImagePreview(toolType) {
+            const previewContainer = document.getElementById(`${toolType}-preview`);
+            const originalImg = document.getElementById(`${toolType}-original`);
+            const originalInfo = document.getElementById(`${toolType}-original-info`);
+            
+            if (previewContainer && originalImg && originalInfo && currentImageData) {
+                previewContainer.style.display = 'grid';
+                originalImg.src = currentImageData.src;
+                originalInfo.textContent = `Size: ${currentImageData.width}x${currentImageData.height} | Format: ${currentImageData.file.type} | File: ${formatFileSize(currentImageData.file.size)}`;
             }
         }
 
-        function goBack() {
-            document.getElementById('landing-page').style.display = 'block';
-            document.querySelectorAll('.tool-page').forEach(page => {
-                page.style.display = 'none';
-            });
-            history.pushState({}, '', window.location.pathname);
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // Invoice Generator Functions
-        function addInvoiceItem() {
-            const itemsContainer = document.getElementById('invoice-items');
-            const newItem = document.createElement('div');
-            newItem.className = 'invoice-item';
-            newItem.innerHTML = `
-                <input type="text" class="form-input item-desc" placeholder="Description" style="width: 40%; display: inline-block;">
-                <input type="number" class="form-input item-qty" placeholder="Qty" style="width: 15%; display: inline-block;" onchange="calculateItemAmount(this)">
-                <input type="number" class="form-input item-price" placeholder="Price" style="width: 20%; display: inline-block;" onchange="calculateItemAmount(this)">
-                <input type="text" class="form-input item-amount" placeholder="Amount" style="width: 20%; display: inline-block;" readonly>
-            `;
-            itemsContainer.appendChild(newItem);
+        function updateQualityValue() {
+            const quality = document.getElementById('compression-quality').value;
+            document.getElementById('quality-value').textContent = `${quality}%`;
         }
 
-        function calculateItemAmount(input) {
-            const item = input.parentElement;
-            const qty = item.querySelector('.item-qty').value || 0;
-            const price = item.querySelector('.item-price').value || 0;
-            const amount = item.querySelector('.item-amount');
-            amount.value = (qty * price).toFixed(2);
+        function updateLengthValue() {
+            const length = document.getElementById('password-length').value;
+            document.getElementById('length-value').textContent = length;
         }
 
-        function generateInvoice() {
-            const fromName = document.getElementById('from-name').value || 'Your Company';
-            const fromAddress = document.getElementById('from-address').value || 'Your Address';
-            const toName = document.getElementById('to-name').value || 'Client Name';
-            const toAddress = document.getElementById('to-address').value || 'Client Address';
-            const invoiceNumber = document.getElementById('invoice-number').value || 'INV-001';
-            const invoiceDate = document.getElementById('invoice-date').value || new Date().toISOString().split('T')[0];
+        // Image Conversion Functions
+        function convertImage() {
+            if (!currentImageData) {
+                alert('Please upload an image first');
+                return;
+            }
             
-            let itemsHTML = '';
-            let total = 0;
+            showLoading('convert-btn');
             
-            document.querySelectorAll('.invoice-item').forEach(item => {
-                const desc = item.querySelector('.item-desc').value || '';
-                const qty = item.querySelector('.item-qty').value || 0;
-                const price = item.querySelector('.item-price').value || 0;
-                const amount = item.querySelector('.item-amount').value || 0;
+            setTimeout(() => {
+                try {
+                    const targetFormat = document.getElementById('target-format').value;
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = currentImageData.width;
+                    canvas.height = currentImageData.height;
+                    
+                    const img = new Image();
+                    img.onload = function() {
+                        ctx.drawImage(img, 0, 0);
+                        
+                        let mimeType;
+                        let quality = 0.92;
+                        
+                        switch(targetFormat) {
+                            case 'jpg':
+                                mimeType = 'image/jpeg';
+                                break;
+                            case 'png':
+                                mimeType = 'image/png';
+                                quality = 1.0;
+                                break;
+                            case 'webp':
+                                mimeType = 'image/webp';
+                                break;
+                            default:
+                                mimeType = 'image/png';
+                        }
+                        
+                        currentConvertedImage = canvas.toDataURL(mimeType, quality);
+                        
+                        // Update the preview
+                        const convertedImg = document.getElementById('converted-image');
+                        const convertedInfo = document.getElementById('converted-info');
+                        
+                        if (convertedImg && convertedInfo) {
+                            convertedImg.src = currentConvertedImage;
+                            convertedInfo.textContent = `Format: ${targetFormat.toUpperCase()} | Size: ${currentImageData.width}x${currentImageData.height}`;
+                        }
+                        
+                        // Enable download button
+                        document.getElementById('download-btn').disabled = false;
+                        
+                    };
+                    img.src = currentImageData.src;
+                    
+                } catch (error) {
+                    alert('Error converting image: ' + error.message);
+                } finally {
+                    hideLoading('convert-btn', '<i class="fas fa-sync-alt"></i> Convert Image');
+                }
+            }, 500);
+        }
+
+        function downloadConvertedImage() {
+            if (!currentConvertedImage) {
+                alert('Please convert an image first');
+                return;
+            }
+            
+            showLoading('download-btn');
+            
+            setTimeout(() => {
+                try {
+                    const targetFormat = document.getElementById('target-format').value;
+                    const link = document.createElement('a');
+                    link.download = `converted-image.${targetFormat}`;
+                    link.href = currentConvertedImage;
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                } catch (error) {
+                    alert('Error downloading image: ' + error.message);
+                } finally {
+                    hideLoading('download-btn', '<i class="fas fa-download"></i> Download Converted');
+                }
+            }, 500);
+        }
+
+        function compressImage() {
+            if (!currentImageData) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            const quality = document.getElementById('compression-quality').value / 100;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = currentImageData.width;
+            canvas.height = currentImageData.height;
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
                 
-                if (desc && qty && price) {
-                    itemsHTML += `<tr><td>${desc}</td><td>${qty}</td><td>$${price}</td><td>$${amount}</td></tr>`;
-                    total += parseFloat(amount);
-                }
-            });
-            
-            const invoiceHTML = `
-                <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
-                        <div>
-                            <h2>${fromName}</h2>
-                            <p>${fromAddress}</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <h1>INVOICE</h1>
-                            <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
-                            <p><strong>Date:</strong> ${invoiceDate}</p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 2rem;">
-                        <h3>Bill To:</h3>
-                        <p>${toName}<br>${toAddress}</p>
-                    </div>
-                    
-                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
-                        <thead>
-                            <tr style="background: #f8fafc;">
-                                <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">Description</th>
-                                <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #e5e7eb;">Qty</th>
-                                <th style="padding: 1rem; text-align: right; border-bottom: 2px solid #e5e7eb;">Price</th>
-                                <th style="padding: 1rem; text-align: right; border-bottom: 2px solid #e5e7eb;">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemsHTML}
-                            <tr>
-                                <td colspan="3" style="padding: 1rem; text-align: right; border-top: 2px solid #e5e7eb;"><strong>Total:</strong></td>
-                                <td style="padding: 1rem; text-align: right; border-top: 2px solid #e5e7eb;"><strong>$${total.toFixed(2)}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
-                        <p><strong>Thank you for your business!</strong></p>
-                        <p>Please make payment within 30 days.</p>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('invoice-preview').innerHTML = invoiceHTML;
+                currentCompressedImage = canvas.toDataURL('image/jpeg', quality);
+                document.getElementById('compressed-image').src = currentCompressedImage;
+                
+                // Calculate compressed size
+                const compressedSize = Math.round((currentCompressedImage.length * 3) / 4);
+                const originalSize = currentImageData.file.size;
+                const savings = ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
+                
+                document.getElementById('compressed-info').textContent = 
+                    `Format: JPEG | Quality: ${quality * 100}% | Size: ${formatFileSize(compressedSize)} | Savings: ${savings}%`;
+                document.getElementById('download-compressed-btn').disabled = false;
+            };
+            img.src = currentImageData.src;
         }
 
-        function downloadInvoice() {
-            alert('✅ Invoice PDF downloaded successfully!');
-        }
-
-        // QR Code Generator Functions
-        function generateQRCode() {
-            const content = document.getElementById('qr-content').value || 'https://nextgentool.com';
-            const size = document.getElementById('qr-size').value;
+        function downloadCompressedImage() {
+            if (!currentCompressedImage) {
+                alert('Please compress an image first');
+                return;
+            }
             
-            document.getElementById('qr-preview').innerHTML = '';
+            showLoading('download-compressed-btn');
             
-            QRCode.toCanvas(document.getElementById('qr-preview'), content, {
-                width: size,
-                margin: 2,
-                color: {
-                    dark: '#000000',
-                    light: '#FFFFFF'
-                }
-            }, function(error) {
-                if (error) console.error(error);
-            });
-        }
-
-        function downloadQRCode() {
-            const canvas = document.querySelector('#qr-preview canvas');
-            if (canvas) {
+            setTimeout(() => {
                 const link = document.createElement('a');
-                link.download = 'qrcode.png';
-                link.href = canvas.toDataURL();
+                link.download = 'compressed-image.jpg';
+                link.href = currentCompressedImage;
+                document.body.appendChild(link);
                 link.click();
-                alert('✅ QR Code downloaded successfully!');
+                document.body.removeChild(link);
+                
+                hideLoading('download-compressed-btn', '<i class="fas fa-download"></i> Download Compressed');
+            }, 500);
+        }
+
+        function cropImage() {
+            if (!currentImageData) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            const width = parseInt(document.getElementById('crop-width').value) || currentImageData.width;
+            const height = parseInt(document.getElementById('crop-height').value) || currentImageData.height;
+            
+            const canvas = document.getElementById('cropped-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, width, height);
+                currentCroppedImage = canvas.toDataURL();
+                document.getElementById('cropped-info').textContent = `Size: ${width}x${height} | Format: PNG`;
+                document.getElementById('download-crop-btn').disabled = false;
+            };
+            img.src = currentImageData.src;
+        }
+
+        function downloadCroppedImage() {
+            if (!currentCroppedImage) {
+                alert('Please crop an image first');
+                return;
+            }
+            
+            showLoading('download-crop-btn');
+            
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = 'cropped-image.png';
+                link.href = currentCroppedImage;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                hideLoading('download-crop-btn', '<i class="fas fa-download"></i> Download Cropped');
+            }, 500);
+        }
+
+        function resizeImage() {
+            if (!currentImageData) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            let width = parseInt(document.getElementById('resize-width').value);
+            let height = parseInt(document.getElementById('resize-height').value);
+            const maintainAspect = document.getElementById('maintain-aspect').checked;
+            
+            if (!width && !height) {
+                alert('Please enter at least one dimension');
+                return;
+            }
+            
+            if (maintainAspect) {
+                const aspectRatio = currentImageData.width / currentImageData.height;
+                if (width && !height) {
+                    height = Math.round(width / aspectRatio);
+                } else if (height && !width) {
+                    width = Math.round(height * aspectRatio);
+                }
+            }
+            
+            width = width || currentImageData.width;
+            height = height || currentImageData.height;
+            
+            const canvas = document.getElementById('resized-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, width, height);
+                currentResizedImage = canvas.toDataURL();
+                document.getElementById('resized-info').textContent = `Size: ${width}x${height} | Format: PNG`;
+                document.getElementById('download-resize-btn').disabled = false;
+            };
+            img.src = currentImageData.src;
+        }
+
+        function downloadResizedImage() {
+            if (!currentResizedImage) {
+                alert('Please resize an image first');
+                return;
+            }
+            
+            showLoading('download-resize-btn');
+            
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = 'resized-image.png';
+                link.href = currentResizedImage;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                hideLoading('download-resize-btn', '<i class="fas fa-download"></i> Download Resized');
+            }, 500);
+        }
+
+        // WebP Conversion Functions
+        function handleWebpUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentWebpImage = {
+                    src: e.target.result,
+                    file: file
+                };
+                
+                document.getElementById('webp-original').src = e.target.result;
+                document.getElementById('webp-original-info').textContent = `Format: WebP | File: ${formatFileSize(file.size)}`;
+                document.getElementById('webp-preview').style.display = 'grid';
+                document.getElementById('webp-convert-btn').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function convertWebp() {
+            if (!currentWebpImage) {
+                alert('Please upload a WebP image first');
+                return;
+            }
+            
+            const targetFormat = document.getElementById('webp-target-format').value;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                let mimeType;
+                switch(targetFormat) {
+                    case 'png':
+                        mimeType = 'image/png';
+                        break;
+                    case 'jpg':
+                        mimeType = 'image/jpeg';
+                        break;
+                }
+                
+                const convertedImage = canvas.toDataURL(mimeType);
+                document.getElementById('webp-converted').src = convertedImage;
+                document.getElementById('webp-converted-info').textContent = `Format: ${targetFormat.toUpperCase()} | Size: ${img.width}x${img.height}`;
+                document.getElementById('webp-download-btn').disabled = false;
+                
+                // Store for download
+                currentWebpImage.converted = convertedImage;
+            };
+            img.src = currentWebpImage.src;
+        }
+
+        function downloadWebpConverted() {
+            if (!currentWebpImage || !currentWebpImage.converted) {
+                alert('Please convert the WebP image first');
+                return;
+            }
+            
+            showLoading('webp-download-btn');
+            
+            setTimeout(() => {
+                const targetFormat = document.getElementById('webp-target-format').value;
+                const link = document.createElement('a');
+                link.download = `converted-from-webp.${targetFormat}`;
+                link.href = currentWebpImage.converted;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                hideLoading('webp-download-btn', '<i class="fas fa-download"></i> Download Converted');
+            }, 500);
+        }
+
+        // Loading Functions
+        function showLoading(buttonId) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<span class="loading-spinner"></span> Processing...';
+                button.disabled = true;
+                button.dataset.originalHTML = originalHTML;
             }
         }
 
-        // Password Generator Functions
-        function updatePasswordLength() {
-            const length = document.getElementById('password-length').value;
-            document.getElementById('length-value').textContent = `${length} characters`;
+        function hideLoading(buttonId, newHTML = null) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                if (newHTML) {
+                    button.innerHTML = newHTML;
+                } else {
+                    button.innerHTML = button.dataset.originalHTML;
+                }
+                button.disabled = false;
+            }
         }
 
+        // Text Tools Functions
+        function countWords() {
+            const text = document.getElementById('word-counter-text').value;
+            const words = text.trim() ? text.trim().split(/\s+/) : [];
+            const characters = text.length;
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+            const readingTime = Math.ceil(words.length / 200);
+            
+            document.getElementById('word-count').textContent = words.length;
+            document.getElementById('character-count').textContent = characters;
+            document.getElementById('sentence-count').textContent = sentences;
+            document.getElementById('paragraph-count').textContent = paragraphs;
+            document.getElementById('reading-time').textContent = readingTime;
+        }
+
+        function convertCase(caseType) {
+            const text = document.getElementById('case-converter-text').value;
+            let convertedText = '';
+            
+            switch(caseType) {
+                case 'uppercase':
+                    convertedText = text.toUpperCase();
+                    break;
+                case 'lowercase':
+                    convertedText = text.toLowerCase();
+                    break;
+                case 'titlecase':
+                    convertedText = text.replace(/\w\S*/g, function(txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    });
+                    break;
+                case 'sentencecase':
+                    convertedText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+                    break;
+            }
+            
+            document.getElementById('converted-text-output').textContent = convertedText;
+        }
+
+        function copyConvertedText() {
+            const text = document.getElementById('converted-text-output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard!');
+            });
+        }
+
+        function copyText(textareaId) {
+            const text = document.getElementById(textareaId).value;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard!');
+            });
+        }
+
+        function clearText(textareaId) {
+            document.getElementById(textareaId).value = '';
+            if (textareaId === 'word-counter-text') {
+                countWords();
+            }
+        }
+
+        function extractText() {
+            const sourceType = document.getElementById('extractor-source').value;
+            let extractedText = '';
+            
+            switch(sourceType) {
+                case 'url':
+                    extractedText = 'Text extraction from URLs requires server-side processing. Please use direct input or file upload.';
+                    break;
+                case 'file':
+                    extractedText = 'Text extraction from files requires server-side processing. Please use direct input.';
+                    break;
+                case 'input':
+                    extractedText = document.getElementById('extractor-text').value;
+                    break;
+            }
+            
+            document.getElementById('extracted-text-output').textContent = extractedText;
+        }
+
+        function copyExtractedText() {
+            const text = document.getElementById('extracted-text-output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard!');
+            });
+        }
+
+        function compareTexts() {
+            const original = document.getElementById('original-diff-text').value;
+            const modified = document.getElementById('modified-diff-text').value;
+            
+            if (original === modified) {
+                document.getElementById('diff-results').innerHTML = '<p style="color: #10b981;">Texts are identical!</p>';
+            } else {
+                document.getElementById('diff-results').innerHTML = `
+                    <p style="color: #ef4444;">Texts are different!</p>
+                    <p><strong>Original length:</strong> ${original.length} characters</p>
+                    <p><strong>Modified length:</strong> ${modified.length} characters</p>
+                `;
+            }
+        }
+
+        function encodeText() {
+            const text = document.getElementById('encoder-input').value;
+            const encodingType = document.getElementById('encoding-type').value;
+            let result = '';
+            
+            switch(encodingType) {
+                case 'base64':
+                    result = btoa(unescape(encodeURIComponent(text)));
+                    break;
+                case 'url':
+                    result = encodeURIComponent(text);
+                    break;
+                case 'html':
+                    result = text.replace(/[&<>"']/g, function(m) {
+                        return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[m];
+                    });
+                    break;
+            }
+            
+            document.getElementById('encoder-output').textContent = result;
+        }
+
+        function decodeText() {
+            const text = document.getElementById('encoder-input').value;
+            const encodingType = document.getElementById('encoding-type').value;
+            let result = '';
+            
+            switch(encodingType) {
+                case 'base64':
+                    result = decodeURIComponent(escape(atob(text)));
+                    break;
+                case 'url':
+                    result = decodeURIComponent(text);
+                    break;
+                case 'html':
+                    result = text.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, function(m) {
+                        return {'&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'"}[m];
+                    });
+                    break;
+            }
+            
+            document.getElementById('encoder-output').textContent = result;
+        }
+
+        function copyEncoderOutput() {
+            const text = document.getElementById('encoder-output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard!');
+            });
+        }
+
+        // Calculator Functions - FIXED
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight-input').value);
+            const height = parseFloat(document.getElementById('height-input').value) / 100;
+            
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                alert('Please enter valid weight and height values');
+                return;
+            }
+            
+            const bmi = weight / (height * height);
+            let category = '';
+            
+            if (bmi < 18.5) category = 'Underweight';
+            else if (bmi < 25) category = 'Normal weight';
+            else if (bmi < 30) category = 'Overweight';
+            else category = 'Obese';
+            
+            document.getElementById('bmi-value').textContent = bmi.toFixed(1);
+            document.getElementById('bmi-category').textContent = category;
+            document.getElementById('bmi-result').style.display = 'block';
+        }
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loan-amount').value);
+            const rate = parseFloat(document.getElementById('interest-rate').value) / 100 / 12;
+            const term = parseFloat(document.getElementById('loan-term').value) * 12;
+            
+            if (!amount || !rate || !term || amount <= 0 || rate <= 0 || term <= 0) {
+                alert('Please enter valid loan details');
+                return;
+            }
+            
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+            
+            document.getElementById('monthly-payment').textContent = `$${monthlyPayment.toFixed(2)}`;
+            document.getElementById('total-payment').textContent = `$${totalPayment.toFixed(2)}`;
+            document.getElementById('total-interest').textContent = `$${totalInterest.toFixed(2)}`;
+            document.getElementById('loan-result').style.display = 'block';
+        }
+
+        function togglePercentageInputs() {
+            const type = document.getElementById('percentage-type').value;
+            const label1 = document.getElementById('percentage-input1-label');
+            const label2 = document.getElementById('percentage-input2-label');
+            
+            switch(type) {
+                case 'basic':
+                    label1.textContent = 'Percentage (%)';
+                    label2.textContent = 'Number';
+                    break;
+                case 'increase':
+                    label1.textContent = 'Number';
+                    label2.textContent = 'Increase Percentage (%)';
+                    break;
+                case 'decrease':
+                    label1.textContent = 'Number';
+                    label2.textContent = 'Decrease Percentage (%)';
+                    break;
+                case 'percentage':
+                    label1.textContent = 'Part';
+                    label2.textContent = 'Whole';
+                    break;
+            }
+        }
+
+        function calculatePercentage() {
+            const type = document.getElementById('percentage-type').value;
+            const input1 = parseFloat(document.getElementById('percentage-input1').value);
+            const input2 = parseFloat(document.getElementById('percentage-input2').value);
+            
+            if (!input1 || !input2 || input1 <= 0 || input2 <= 0) {
+                alert('Please enter valid numbers');
+                return;
+            }
+            
+            let result = '';
+            
+            switch(type) {
+                case 'basic':
+                    result = `${input1}% of ${input2} = ${(input1 / 100 * input2).toFixed(2)}`;
+                    break;
+                case 'increase':
+                    result = `${input1} increased by ${input2}% = ${(input1 * (1 + input2 / 100)).toFixed(2)}`;
+                    break;
+                case 'decrease':
+                    result = `${input1} decreased by ${input2}% = ${(input1 * (1 - input2 / 100)).toFixed(2)}`;
+                    break;
+                case 'percentage':
+                    result = `${input1} is ${((input1 / input2) * 100).toFixed(2)}% of ${input2}`;
+                    break;
+            }
+            
+            document.getElementById('percentage-result-text').textContent = result;
+            document.getElementById('percentage-result').style.display = 'block';
+        }
+
+        // FIXED Age Calculator
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birth-date').value);
+            const today = new Date();
+            
+            if (!birthDate.getTime()) {
+                alert('Please select a valid date of birth');
+                return;
+            }
+            
+            if (birthDate > today) {
+                alert('Birth date cannot be in the future');
+                return;
+            }
+            
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+            
+            if (days < 0) {
+                months--;
+                // Get days in previous month
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            document.getElementById('years-age').textContent = years;
+            document.getElementById('months-age').textContent = months;
+            document.getElementById('days-age').textContent = days;
+            document.getElementById('age-result').style.display = 'block';
+        }
+
+        // FIXED Unit Converter
+        function convertUnits() {
+            const value = parseFloat(document.getElementById('unit-value').value);
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+            
+            if (!value || value <= 0) {
+                alert('Please enter a valid number');
+                return;
+            }
+            
+            // Convert to meters first
+            let valueInMeters = value;
+            
+            // Convert from unit to meters
+            switch(fromUnit) {
+                case 'kilometer':
+                    valueInMeters = value * 1000;
+                    break;
+                case 'centimeter':
+                    valueInMeters = value / 100;
+                    break;
+                case 'millimeter':
+                    valueInMeters = value / 1000;
+                    break;
+                case 'mile':
+                    valueInMeters = value * 1609.34;
+                    break;
+                case 'yard':
+                    valueInMeters = value * 0.9144;
+                    break;
+                case 'foot':
+                    valueInMeters = value * 0.3048;
+                    break;
+                case 'inch':
+                    valueInMeters = value * 0.0254;
+                    break;
+            }
+            
+            // Convert from meters to target unit
+            let result = valueInMeters;
+            
+            switch(toUnit) {
+                case 'kilometer':
+                    result = valueInMeters / 1000;
+                    break;
+                case 'centimeter':
+                    result = valueInMeters * 100;
+                    break;
+                case 'millimeter':
+                    result = valueInMeters * 1000;
+                    break;
+                case 'mile':
+                    result = valueInMeters / 1609.34;
+                    break;
+                case 'yard':
+                    result = valueInMeters / 0.9144;
+                    break;
+                case 'foot':
+                    result = valueInMeters / 0.3048;
+                    break;
+                case 'inch':
+                    result = valueInMeters / 0.0254;
+                    break;
+            }
+            
+            document.getElementById('unit-result-text').textContent = `${value} ${fromUnit} = ${result.toFixed(6)} ${toUnit}`;
+            document.getElementById('unit-result').style.display = 'block';
+        }
+
+        // Generator Functions
         function generatePassword() {
-            const length = document.getElementById('password-length').value;
-            const uppercase = document.getElementById('uppercase').checked;
-            const lowercase = document.getElementById('lowercase').checked;
-            const numbers = document.getElementById('numbers').checked;
-            const symbols = document.getElementById('symbols').checked;
+            const length = parseInt(document.getElementById('password-length').value);
+            const includeUppercase = document.getElementById('include-uppercase').checked;
+            const includeLowercase = document.getElementById('include-lowercase').checked;
+            const includeNumbers = document.getElementById('include-numbers').checked;
+            const includeSymbols = document.getElementById('include-symbols').checked;
             
-            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-            const numberChars = '0123456789';
-            const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            let charset = '';
+            if (includeUppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (includeLowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (includeNumbers) charset += '0123456789';
+            if (includeSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
             
-            let allowedChars = '';
-            if (uppercase) allowedChars += uppercaseChars;
-            if (lowercase) allowedChars += lowercaseChars;
-            if (numbers) allowedChars += numberChars;
-            if (symbols) allowedChars += symbolChars;
-            
-            if (allowedChars === '') {
-                document.getElementById('password-result').innerHTML = '<p style="color: red;">Please select at least one character type</p>';
+            if (!charset) {
+                alert('Please select at least one character type');
                 return;
             }
             
             let password = '';
             for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * allowedChars.length);
-                password += allowedChars[randomIndex];
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
             }
             
-            document.getElementById('password-result').innerHTML = `<p style="font-family: monospace; font-size: 1.2rem; word-break: break-all;">${password}</p>`;
-            checkPasswordStrength(password);
+            document.getElementById('generated-password').value = password;
+            updatePasswordStrength(password);
+        }
+
+        function updatePasswordStrength(password) {
+            let strength = 0;
+            const bar = document.getElementById('password-strength-bar');
+            const text = document.getElementById('password-strength-text');
+            
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+            if (/[a-z]/.test(password)) strength += 10;
+            if (/[A-Z]/.test(password)) strength += 10;
+            if (/[0-9]/.test(password)) strength += 10;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 20;
+            
+            bar.style.width = `${strength}%`;
+            
+            if (strength < 40) {
+                bar.style.background = '#ef4444';
+                text.textContent = 'Weak';
+            } else if (strength < 70) {
+                bar.style.background = '#f59e0b';
+                text.textContent = 'Medium';
+            } else {
+                bar.style.background = '#10b981';
+                text.textContent = 'Strong';
+            }
         }
 
         function copyPassword() {
-            const passwordText = document.querySelector('#password-result p');
-            if (passwordText) {
-                navigator.clipboard.writeText(passwordText.textContent)
-                    .then(() => alert('✅ Password copied to clipboard!'))
-                    .catch(err => console.error('Failed to copy password: ', err));
-            }
+            const password = document.getElementById('generated-password').value;
+            navigator.clipboard.writeText(password).then(() => {
+                alert('Password copied to clipboard!');
+            });
         }
 
-        function checkPasswordStrength(password) {
-            let strength = 0;
-            const hasLower = /[a-z]/.test(password);
-            const hasUpper = /[A-Z]/.test(password);
-            const hasNumbers = /\d/.test(password);
-            const hasSymbols = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?]/.test(password);
-            
-            if (password.length >= 8) strength++;
-            if (password.length >= 12) strength++;
-            if (hasLower && hasUpper) strength++;
-            if (hasNumbers) strength++;
-            if (hasSymbols) strength++;
-            
-            const strengthBar = document.getElementById('strength-bar');
-            const strengthText = document.getElementById('strength-text');
-            
-            let color, text;
-            if (strength <= 2) {
-                color = '#ef4444';
-                text = 'Weak';
-            } else if (strength <= 3) {
-                color = '#f59e0b';
-                text = 'Fair';
-            } else if (strength <= 4) {
-                color = '#10b981';
-                text = 'Good';
-            } else {
-                color = '#059669';
-                text = 'Strong';
-            }
-            
-            strengthBar.style.width = `${(strength / 5) * 100}%`;
-            strengthBar.style.background = color;
-            strengthText.textContent = text;
-            strengthText.style.color = color;
+        function toggleQRInputs() {
+            const type = document.getElementById('qr-type').value;
+            document.getElementById('qr-url-input').style.display = type === 'url' ? 'block' : 'none';
+            document.getElementById('qr-text-input').style.display = type === 'text' ? 'block' : 'none';
+            document.getElementById('qr-email-input').style.display = type === 'email' ? 'block' : 'none';
+            document.getElementById('qr-phone-input').style.display = type === 'phone' ? 'block' : 'none';
+            document.getElementById('qr-wifi-input').style.display = type === 'wifi' ? 'block' : 'none';
         }
 
-        // BMI Calculator Functions
-        function calculateBMI() {
-            const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value) / 100;
+        function generateQRCode() {
+            const type = document.getElementById('qr-type').value;
+            let content = '';
             
-            if (weight && height) {
-                const bmi = weight / (height * height);
-                let category = '';
-                let color = '';
-                
-                if (bmi < 18.5) {
-                    category = 'Underweight';
-                    color = '#3b82f6';
-                } else if (bmi < 25) {
-                    category = 'Normal weight';
-                    color = '#10b981';
-                } else if (bmi < 30) {
-                    category = 'Overweight';
-                    color = '#f59e0b';
+            switch(type) {
+                case 'url':
+                    content = document.getElementById('qr-url').value;
+                    break;
+                case 'text':
+                    content = document.getElementById('qr-text').value;
+                    break;
+                case 'email':
+                    const email = document.getElementById('qr-email').value;
+                    const subject = document.getElementById('qr-email-subject').value;
+                    content = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+                    break;
+                case 'phone':
+                    content = `tel:${document.getElementById('qr-phone').value}`;
+                    break;
+                case 'wifi':
+                    const ssid = document.getElementById('qr-wifi-ssid').value;
+                    const password = document.getElementById('qr-wifi-password').value;
+                    content = `WIFI:S:${ssid};T:WPA;P:${password};;`;
+                    break;
+            }
+            
+            if (!content) {
+                alert('Please enter content for the QR code');
+                return;
+            }
+            
+            document.getElementById('qrcode').innerHTML = '';
+            
+            QRCode.toCanvas(document.getElementById('qrcode'), content, function(error) {
+                if (error) {
+                    alert('Error generating QR code');
                 } else {
-                    category = 'Obesity';
-                    color = '#ef4444';
-                }
-                
-                document.getElementById('bmi-result').innerHTML = `
-                    <h3 style="color: ${color};">Your BMI: ${bmi.toFixed(1)}</h3>
-                    <p><strong>Category:</strong> ${category}</p>
-                    <p><strong>Weight Range for Normal BMI:</strong> ${(18.5 * height * height).toFixed(1)}kg - ${(24.9 * height * height).toFixed(1)}kg</p>
-                `;
-            }
-        }
-
-        // Word Counter Functions
-        function countWords() {
-            const text = document.getElementById('word-text').value;
-            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-            const characters = text.length;
-            const charactersNoSpaces = text.replace(/\s/g, '').length;
-            const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
-            const paragraphs = text.split(/\n+/).filter(p => p.trim()).length;
-            
-            document.getElementById('word-stats').innerHTML = `
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
-                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${words}</h3>
-                        <p>Words</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
-                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${characters}</h3>
-                        <p>Characters</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
-                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${charactersNoSpaces}</h3>
-                        <p>Characters (no spaces)</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
-                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${sentences}</h3>
-                        <p>Sentences</p>
-                    </div>
-                    <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
-                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">${paragraphs}</h3>
-                        <p>Paragraphs</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function clearText() {
-            document.getElementById('word-text').value = '';
-            countWords();
-        }
-
-        // Age Calculator Functions
-        function calculateAge() {
-            const birthDate = new Date(document.getElementById('birth-date').value);
-            const asOfDate = document.getElementById('age-as-of').value ? 
-                new Date(document.getElementById('age-as-of').value) : new Date();
-            
-            if (birthDate && asOfDate) {
-                let years = asOfDate.getFullYear() - birthDate.getFullYear();
-                let months = asOfDate.getMonth() - birthDate.getMonth();
-                let days = asOfDate.getDate() - birthDate.getDate();
-                
-                if (days < 0) {
-                    months--;
-                    const prevMonth = new Date(asOfDate.getFullYear(), asOfDate.getMonth(), 0);
-                    days += prevMonth.getDate();
-                }
-                
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-                
-                const totalMonths = years * 12 + months;
-                const timeDiff = asOfDate - birthDate;
-                const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const totalWeeks = Math.floor(totalDays / 7);
-                
-                document.getElementById('age-result').innerHTML = `
-                    <h3>Your Age:</h3>
-                    <p><strong>${years}</strong> years, <strong>${months}</strong> months, <strong>${days}</strong> days</p>
-                    <p><strong>or</strong> ${totalMonths} months</p>
-                    <p><strong>or</strong> ${totalWeeks} weeks</p>
-                    <p><strong>or</strong> ${totalDays} days</p>
-                `;
-            }
-        }
-
-        // Search functionality
-        document.getElementById('tool-search').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const toolCards = document.querySelectorAll('.tool-card');
-            
-            toolCards.forEach(card => {
-                const title = card.querySelector('h2').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
+                    document.getElementById('qr-preview').style.display = 'block';
                 }
             });
+        }
 
-            const categorySections = document.querySelectorAll('.category-section');
-            categorySections.forEach(section => {
-                const sectionCards = section.querySelectorAll('.tool-card');
-                const visibleCards = Array.from(sectionCards).filter(card => 
-                    card.style.display !== 'none'
-                );
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (!canvas) return;
+            
+            showLoading('download-qr-btn');
+            
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
                 
-                if (visibleCards.length > 0 || searchTerm === '') {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
+                hideLoading('download-qr-btn', '<i class="fas fa-download"></i> Download QR Code');
+            }, 500);
+        }
+
+        function generateColorPalette() {
+            const baseColor = document.getElementById('base-color').value;
+            const paletteType = document.getElementById('palette-type').value;
+            
+            // Simple color palette generation
+            const colors = [baseColor];
+            
+            // Generate additional colors based on palette type
+            for (let i = 1; i < 5; i++) {
+                const r = Math.min(255, parseInt(baseColor.slice(1, 3), 16) + i * 30);
+                const g = Math.min(255, parseInt(baseColor.slice(3, 5), 16) + i * 20);
+                const b = Math.min(255, parseInt(baseColor.slice(5, 7), 16) + i * 10);
+                colors.push(`#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
+            }
+            
+            const paletteContainer = document.getElementById('color-palette');
+            paletteContainer.innerHTML = '';
+            
+            colors.forEach(color => {
+                const swatch = document.createElement('div');
+                swatch.style.backgroundColor = color;
+                swatch.style.height = '80px';
+                swatch.style.borderRadius = '6px';
+                swatch.style.display = 'flex';
+                swatch.style.alignItems = 'center';
+                swatch.style.justifyContent = 'center';
+                swatch.style.color = 'white';
+                swatch.style.fontWeight = '600';
+                swatch.style.textShadow = '1px 1px 2px rgba(0,0,0,0.5)';
+                swatch.textContent = color;
+                paletteContainer.appendChild(swatch);
             });
-        });
+            
+            document.getElementById('color-palette-result').style.display = 'block';
+        }
 
-        // Handle browser navigation
-        window.addEventListener('popstate', function(event) {
-            if (window.location.hash) {
-                const toolId = window.location.hash.substring(1);
-                openTool(toolId);
-            } else {
-                goBack();
+        function generateLoremIpsum() {
+            const type = document.getElementById('lorem-type').value;
+            const amount = parseInt(document.getElementById('lorem-amount').value);
+            
+            const loremWords = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua'];
+            let result = '';
+            
+            switch(type) {
+                case 'words':
+                    for (let i = 0; i < amount; i++) {
+                        result += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+                    }
+                    break;
+                case 'sentences':
+                    for (let i = 0; i < amount; i++) {
+                        let sentence = '';
+                        const wordsInSentence = 5 + Math.floor(Math.random() * 10);
+                        for (let j = 0; j < wordsInSentence; j++) {
+                            sentence += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+                        }
+                        result += sentence.trim().charAt(0).toUpperCase() + sentence.trim().slice(1) + '. ';
+                    }
+                    break;
+                case 'paragraphs':
+                    for (let i = 0; i < amount; i++) {
+                        let paragraph = '';
+                        const sentencesInParagraph = 3 + Math.floor(Math.random() * 4);
+                        for (let j = 0; j < sentencesInParagraph; j++) {
+                            let sentence = '';
+                            const wordsInSentence = 5 + Math.floor(Math.random() * 10);
+                            for (let k = 0; k < wordsInSentence; k++) {
+                                sentence += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+                            }
+                            paragraph += sentence.trim().charAt(0).toUpperCase() + sentence.trim().slice(1) + '. ';
+                        }
+                        result += '<p>' + paragraph.trim() + '</p>';
+                    }
+                    break;
             }
-        });
+            
+            document.getElementById('lorem-output').innerHTML = result;
+        }
 
-        // Initialize on load
-        window.addEventListener('load', function() {
-            if (window.location.hash) {
-                const toolId = window.location.hash.substring(1);
-                openTool(toolId);
-            }
+        function copyLoremText() {
+            const text = document.getElementById('lorem-output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard!');
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
+            document.getElementById('extractor-source').addEventListener('change', function() {
+                const sourceType = this.value;
+                document.getElementById('url-input-group').style.display = sourceType === 'url' ? 'block' : 'none';
+                document.getElementById('file-input-group').style.display = sourceType === 'file' ? 'block' : 'none';
+                document.getElementById('text-input-group').style.display = sourceType === 'input' ? 'block' : 'none';
+            });
             
-            // Set current date for age calculator
-            document.getElementById('age-as-of').value = new Date().toISOString().split('T')[0];
+            // Initialize percentage calculator labels
+            togglePercentageInputs();
             
-            // Initialize password length display
-            document.getElementById('password-length').addEventListener('input', updatePasswordLength);
-            
-            // Auto-generate content for tools
-            generateQRCode();
+            // Generate initial password
             generatePassword();
-            calculateBMI();
-            countWords();
-            calculateAge();
-            generateInvoice();
+            
+            // Set max date for age calculator to today
+            document.getElementById('birth-date').max = new Date().toISOString().split('T')[0];
         });
     </script>
 </body>
